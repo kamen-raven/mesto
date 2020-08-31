@@ -1,13 +1,13 @@
 .profile__edit-button {
-  background: none;
+  background-color: #000000;
   border: none;
+  box-shadow: none;
+  box-sizing: content-box;
+  line-height: 0;
+  margin: 37px 17px 59px;
   max-width: 24px;
   width: 100%;
   padding: 0;
-  margin: 37px 17px 59px;
-  box-shadow: none;
-  box-sizing: border-box;
-  line-height: 0;
 }
 
 .profile__edit-button:hover {

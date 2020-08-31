@@ -1,3 +1,8 @@
-.profile__add-button-icon {
-  padding: 14px 0;
+.profile__edit-button-icon {
+  background-image: url(../../../images/edit_button.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  max-width: 24px;
+  width: 100%;
+  padding-bottom: 24px;
 }
