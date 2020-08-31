@@ -4,3 +4,11 @@
   display: flex;
   align-items: center;
 }
+
+@media (max-width: 882px) {
+  .profile {
+    margin-left: 27px;
+    margin-right: 27px;
+  }
+}
+

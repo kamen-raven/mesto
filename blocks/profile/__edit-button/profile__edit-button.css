@@ -1,6 +1,6 @@
 .profile__edit-button {
   background-color: #000000;
-  border: none;
+  border: 1px solid #ffffff;
   box-shadow: none;
   box-sizing: content-box;
   line-height: 0;
