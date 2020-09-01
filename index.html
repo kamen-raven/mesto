@@ -15,14 +15,14 @@
     <header class="header">
       <img class="header__logo"
             src="./images/logo.svg"
-            alt="Лого Mesto">
+            alt="лого Mesto">
     </header>
     <main class="content">
 <!--profile-->
       <section class="profile">
         <img class="profile__avatar"
               src="./images/avatar.jpg"
-              alt="Аватарка">
+              alt="аватарка">
         <div class="profile__info">
 <!--сделать это ГРИДОМ ??-->
             <h1 class="profile__title">
@@ -38,7 +38,7 @@
         </div>
         <button class="profile__add-button profile__add-button-icon"
                 type="button"
-                aria-label="Добавить фото">
+                aria-label="добавить фото">
         </button>
       </section>
 <!--cards-->
@@ -142,9 +142,28 @@
       </p>
     </footer>
 <!--popup-->
-    <section class="popup">
+    <section class="popup popup_opened">
       <div class="popup__container">
-
+        <button class="popup__close-button">
+          <img class="popup__close-button-icon"
+                src=""
+                alt="закрыть попап">
+        </button>
+        <div class="popup__content">
+          <h2 class="popup__title.css">
+            Редактировать профиль
+          </h2>
+          <form class="popup__profile-form">
+            <fieldset class="popup__profile-fieldset">
+              <input class="popup__input popup__input_txt_name">
+              <input class="popup__input popup__input_txt_about">
+            </fieldset>
+          </form>
+        </div>
+        <button class="popup__save-button"
+                type="submit">
+          Сохранить
+        </button>
       </div>
     </section>
   </div>
