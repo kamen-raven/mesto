@@ -7,11 +7,19 @@
   margin: 19px 0 19px 17px;
   max-width: 24px;
   width: 100%;
-  padding: 0;
+  padding: 0 0 24px;
 }
 
 .profile__edit-button:hover {
   cursor: pointer;
   opacity: .6;
   transition: opacity .3s ease-in;
+}
+
+@media (max-width: 598px) {
+  .profile__edit-button {
+    max-width: 18px;
+    margin: 20px 0 24px 7px;
+    padding: 0 0 18px;
+  }
 }

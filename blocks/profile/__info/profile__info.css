@@ -4,3 +4,20 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+
+@media (max-width: 720px) {
+  .profile__info {
+    margin: 14px auto 36px;
+  }
+}
+
+
+
+@media (max-width: 598px) {
+  .profile__info {
+    max-width: 282px;
+    margin: 14px auto 36px;
+    justify-content: center;
+  }
+}

@@ -5,10 +5,17 @@
   align-items: center;
 }
 
-@media (max-width: 882px) {
+@media (max-width: 898px) {
   .profile {
     margin-left: 27px;
     margin-right: 27px;
   }
 }
 
+@media (max-width: 720px) {
+  .profile {
+    flex-direction: column;
+
+    margin: 0 19px 36px;
+  }
+}
