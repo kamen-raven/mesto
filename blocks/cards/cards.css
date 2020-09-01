@@ -9,3 +9,10 @@
   justify-content: center;
   align-content: center;
 }
+
+
+@media (max-width: 425px) {
+  .cards {
+    gap: 20px 19px;
+  }
+}
