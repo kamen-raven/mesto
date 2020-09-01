@@ -2,12 +2,12 @@
   background-color:#ffffff;
   border: none;
   box-shadow: none;
-  box-sizing: border-box;
+  box-sizing: content-box;
   line-height: 0;
-  margin: 25px 22px 24px 21px;
-  max-width: 20px;
+  margin: 29px 22px;
+  max-width: 21px;
   width: 100%;
-  padding: 0;
+  padding: 0 0 19px 0;
 }
 
 .card__like-button:hover {
