@@ -10,6 +10,7 @@ const popupTxtName = popupEdit.querySelector('.popup__input_txt_name');
 const popupTxtAbout = popupEdit.querySelector('.popup__input_txt_about');
 
 
+
 const popupToggle = function(event) {
   console.log('Event: ', event);
   popupEdit.classList.toggle('popup_opened');
@@ -17,19 +18,7 @@ const popupToggle = function(event) {
 
 popupEditOpenButton.addEventListener('click', popupToggle);
 popupEditCloseButton.addEventListener('click', popupToggle)
-/**
 
-// находим элемент .button и кладём в переменную
-let button = document.querySelector('.button');
-
-// обращаемся к переменной, добавляем элементу слушатель клика
-button.addEventListener('click', function () {
-  // что происходит при клике по кнопке
-});
-
-
-
-*/
 
 
 /**
