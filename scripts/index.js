@@ -11,15 +11,16 @@ const popupTxtAbout = popupEdit.querySelector('.popup__input_txt_about');
 
 
 
-const popupToggle = function(event) {
-  console.log('Event: ', event);
-  popupEdit.classList.toggle('popup_opened');
-}
-
-popupEditOpenButton.addEventListener('click', popupToggle);
-popupEditCloseButton.addEventListener('click', popupToggle)
 
 
+
+  const popupToggle = function (event) {
+    console.log('Event: ', event);
+    popupEdit.classList.toggle('popup_opened');
+  };
+
+  popupEditOpenButton.addEventListener('click', popupToggle);
+  popupEditCloseButton.addEventListener('click', popupToggle);
 
 /**
 // Находим форму в DOM
