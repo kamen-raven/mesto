@@ -1,5 +1,5 @@
 .popup__save-button {
-  display: block;
+  display: ;
   align-self: center;
   max-width: 358px;
   width: 100%;
@@ -10,7 +10,7 @@
   box-sizing: border-box;
   line-height: 0;
   padding: 14px 0;
-  margin: 36px 36px;
+  margin: 36px 0;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
