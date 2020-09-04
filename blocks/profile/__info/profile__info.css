@@ -1,11 +1,11 @@
 .profile__info {
   max-width: 336px;
-  margin: 18px 0;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(282px, 318px) 24px;
+  grid-template-rows: minmax(43px, 1fr), 24px;
+  gap: 16px 17px;
   align-items: baseline;
 }
-
 
 @media (max-width: 720px) {
   .profile__info {
@@ -20,5 +20,8 @@
   .profile__info {
     max-width: 282px;
     margin: 14px auto 36px;
+    grid-template-columns: 201px 18px;
+    grid-template-rows: minmax(38px, 1fr), 18px;
+    gap: 7px;
   }
 }
