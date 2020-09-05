@@ -27,7 +27,7 @@
             <h1 class="profile__title">
               Жак-Ив Кусто
             </h1>
-            <button class="profile__edit-button profile__edit-button-icon"
+            <button class="profile__edit-button"
                     type="button"
                     aria-label="редактировать профиль">
             </button>
@@ -35,7 +35,7 @@
               Исследователь океана
             </p>
         </div>
-        <button class="profile__add-button profile__add-button-icon"
+        <button class="profile__add-button"
                 type="button"
                 aria-label="добавить фото">
         </button>
@@ -51,7 +51,7 @@
             <h2 class="card__title">
               Карачаево-Черкессия
             </h2>
-            <button class="card__like-button card__like-button-icon"
+            <button class="card__like-button"
                     type="button"
                     aria-label="поставить лайк">
             </button>
@@ -66,7 +66,7 @@
             <h2 class="card__title">
               Эльбрус
             </h2>
-            <button class="card__like-button card__like-button-icon"
+            <button class="card__like-button"
                     type="button"
                     aria-label="поставить лайк">
             </button>
@@ -81,7 +81,7 @@
             <h2 class="card__title">
               Урал
             </h2>
-            <button class="card__like-button card__like-button-icon"
+            <button class="card__like-button"
                     type="button"
                     aria-label="поставить лайк">
             </button>
@@ -96,7 +96,7 @@
             <h2 class="card__title">
               Москва
             </h2>
-            <button class="card__like-button card__like-button-icon"
+            <button class="card__like-button"
                     type="button"
                     aria-label="поставить лайк">
             </button>
@@ -111,7 +111,7 @@
             <h2 class="card__title">
               Хабаровск
             </h2>
-            <button class="card__like-button card__like-button-icon"
+            <button class="card__like-button"
                     type="button"
                     aria-label="поставить лайк">
             </button>
@@ -126,7 +126,7 @@
           <h2 class="card__title">
             Санкт-Петербург
           </h2>
-          <button class="card__like-button card__like-button-icon"
+          <button class="card__like-button"
                   type="button"
                   aria-label="поставить лайк">
           </button>
@@ -141,24 +141,27 @@
       </p>
     </footer>
 <!--popup-->
-    <section class="popup">
+    <div class="popup">
       <div class="popup__container">
-        <button class="popup__close-button popup__close-button-icon"
-                type="reset">
+        <button class="popup__close-button"
+                type="button">
         </button>
         <div class="popup__content">
           <h2 class="popup__title">
             Редактировать профиль
           </h2>
-          <form class="popup__profile-form">
+          <form class="popup__profile-form"
+                name="profile-info">
             <fieldset class="popup__profile-fieldset">
               <input class="popup__input popup__input_txt_name"
                       type="text"
+                      name="name"
                       placeholder="Имя"
                       required
                       value="">
               <input class="popup__input popup__input_txt_about"
                       type="text"
+                      name="about"
                       placeholder="О себе"
                       required
                       value="">
@@ -170,7 +173,7 @@
           </form>
         </div>
       </div>
-    </section>
+    </div>
   </div>
 <!--script-->
   <script src="./scripts/index.js" defer></script>

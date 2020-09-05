@@ -8,6 +8,10 @@
   max-width: 150px;
   width: 100%;
   padding: 0 0 50px 0;
+  background-image: url(../../../images/add_button.svg);
+  background-repeat: no-repeat;
+  background-size: none;
+  background-position: center;
 }
 
 .profile__add-button:hover {

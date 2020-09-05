@@ -10,10 +10,20 @@
   box-sizing: content-box;
   line-height: 0;
   padding: 0 0 40.7px 0;
+  background-image: url(../../../images/close_icon.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .popup__close-button:hover {
   cursor: pointer;
   opacity: .6;
   transition: opacity .3s ease-in;
+}
+
+@media (max-width: 720px) {
+  .popup__close-button {
+    right: -21px;
+  }
 }

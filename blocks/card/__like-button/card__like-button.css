@@ -8,6 +8,10 @@
   max-width: 21px;
   width: 100%;
   padding: 0 0 19px 0;
+  background-image: url(../../../images/like_button.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 .card__like-button:hover {
