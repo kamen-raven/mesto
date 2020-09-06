@@ -18,12 +18,6 @@ const saveProfileInfo = function () {
   profileTxtAbout.textContent = popupTxtAbout.value;
 }
 
-const popupSaveForm = function () {
-  event.preventDefault();
-  saveProfileInfo();
-  popupClose();
-}
-
 const popupOpen = function () {
   loadProfileInfo();
   popupEdit.classList.add('popup_opened');
@@ -33,6 +27,11 @@ const popupClose = function () {
   popupEdit.classList.remove('popup_opened');
 };
 
+const popupSaveForm = function () {
+  event.preventDefault();
+  saveProfileInfo();
+  popupClose();
+}
 
 popupEditButtonOpen.addEventListener('click', popupOpen);
 popupEditButtonClose.addEventListener('click', popupClose);
