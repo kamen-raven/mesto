@@ -23,3 +23,12 @@
     opacity: .8;
     transition: opacity .3s ease-in;
   }
+
+@media (max-width: 720px) {
+  .popup__save-button{
+    font-size: 14px;
+    line-height: 17px;
+    padding: 11.5px 0;
+    margin: 36px 0 30px;
+  }
+}

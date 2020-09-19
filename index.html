@@ -61,7 +61,41 @@
 
 
 
-<!--popupProfileEdit-->
+<!--popupProfile-->
+    <div class="popup popup__profile">
+      <div class="popup__container">
+        <button class="popup__close-button"
+                type="button">
+        </button>
+        <div class="popup__content">
+          <h2 class="popup__title">
+            Редактировать профиль
+          </h2>
+          <form class="popup__profile-form"
+                name="profile-info">
+            <fieldset class="popup__profile-fieldset">
+              <input class="popup__input popup__input_txt_name"
+                      type="text"
+                      name="name"
+                      placeholder="Имя"
+                      required
+                      value="">
+              <input class="popup__input popup__input_txt_about"
+                      type="text"
+                      name="about"
+                      placeholder="О себе"
+                      required
+                      value="">
+            </fieldset>
+            <button class="popup__save-button"
+                    type="submit">
+              Сохранить
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+<!--popupAddCard-->
     <div class="popup">
       <div class="popup__container">
         <button class="popup__close-button"
@@ -95,6 +129,9 @@
         </div>
       </div>
     </div>
+
+
+
     <!--tamplate-cards-->
     <template class="template-cards">
       <div class="card">
@@ -102,9 +139,11 @@
           type="button"
           aria-label="поставить лайк">
         </button>
-        <img class="card__image"
-              src=""
-              alt="">
+        <button class="card__image-button">
+          <img class="card__image"
+                src=""
+                alt="">
+        </button>
         <div class="card__body">
           <h2 class="card__title">
           </h2>

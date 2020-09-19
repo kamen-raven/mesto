@@ -1,3 +1,11 @@
 .popup__profile-form {
   margin: 0 36px;
 }
+
+
+
+@media (max-width: 720px) {
+  .popup__profile-form {
+    margin: 0 20px;
+  }
+}

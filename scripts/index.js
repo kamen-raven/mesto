@@ -29,7 +29,6 @@ const initialCards = [
 const cardsContainer = document.querySelector('.cards');
 const cardTemplate = document.querySelector('.template-cards').content;
 
-
 const profileTxtName = document.querySelector('.profile__title');
 const profileTxtAbout = document.querySelector('.profile__subtitle');
 
@@ -52,9 +51,8 @@ const originalCards = ({name, link}) => {
     cardsContainer.appendChild(cardElement);
 }
 
-
 const createCards = () => {
-  cardsContainer.innerHTML = "";
+/*   cardsContainer.innerHTML = ""; */
   initialCards.forEach(originalCards);
 }
 
