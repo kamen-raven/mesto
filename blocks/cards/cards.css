@@ -6,8 +6,11 @@
   grid-template-rows: repeat(auto-fit, 360px);
   grid-auto-rows: 360px;
   gap: 20px 18px;
-
+  justify-content: center;
 }
+
+
+
 
 
 @media (max-width: 425px) {

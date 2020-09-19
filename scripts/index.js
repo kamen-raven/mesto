@@ -25,6 +25,7 @@ const initialCards = [
   }
 ];
 
+
 const cardsContainer = document.querySelector('.cards');
 const cardTemplate = document.querySelector('.template-cards').content;
 
@@ -42,13 +43,13 @@ const popupTxtAbout = popupEdit.querySelector('.popup__input_txt_about');
 
 
 
-//создание "изначальных" карточек
+//создание "изначальных" карточек из массива
 const originalCards = ({name, link}) => {
   const cardElement = cardTemplate.cloneNode(true);
-  cardElement.querySelector('.card__image').src = link;
-  cardElement.querySelector('.card__image').alt = name;
-  cardElement.querySelector('.card__title').textContent = name;
-  cardsContainer.appendChild(cardElement);
+    cardElement.querySelector('.card__image').src = link;
+    cardElement.querySelector('.card__image').alt = name;
+    cardElement.querySelector('.card__title').textContent = name;
+    cardsContainer.appendChild(cardElement);
 }
 
 

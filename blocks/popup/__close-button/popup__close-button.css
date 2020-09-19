@@ -24,6 +24,9 @@
 
 @media (max-width: 720px) {
   .popup__close-button {
-    right: -21px;
+    max-width: 30px;
+    padding: 0 0 30px 0;
+    top: -31px;
+    right: -31px;
   }
 }
