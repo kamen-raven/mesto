@@ -1,3 +1,4 @@
+//cards
 const initialCards = [
   {
       name: 'Архыз',
@@ -24,64 +25,70 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
-
 const cardsContainer = document.querySelector('.cards');
 const cardTemplate = document.querySelector('.template-cards').content;
 
-const profileTxtName = document.querySelector('.profile__title');
-const profileTxtAbout = document.querySelector('.profile__subtitle');
-
-const popupEdit = document.querySelector('.popup');
-const popupEditButtonOpen = document.querySelector('.profile__edit-button');
-const popupEditButtonClose = popupEdit.querySelector('.popup__close-button');
-const popupForm = popupEdit.querySelector('.popup__profile-form');
-const popupTxtName = popupEdit.querySelector('.popup__input_txt_name');
-const popupTxtAbout = popupEdit.querySelector('.popup__input_txt_about');
-
-
-
 
 //создание "изначальных" карточек из массива
-const originalCards = ({name, link}) => {
+const createCards = ({name, link}) => {
   const cardElement = cardTemplate.cloneNode(true);
     cardElement.querySelector('.card__image').src = link;
     cardElement.querySelector('.card__image').alt = name;
     cardElement.querySelector('.card__title').textContent = name;
-    cardsContainer.appendChild(cardElement);
+    cardsContainer.append(cardElement);
 }
 
-const createCards = () => {
+//отрисовка "изначальных" карточек из массива
+const renderCards = () => {
 /*   cardsContainer.innerHTML = ""; */
-  initialCards.forEach(originalCards);
+  initialCards.forEach(createCards);
 }
 
-createCards();
+
+//profile
+//profile info content
+const profileEditTxtName = document.querySelector('.profile__title');
+const profileEditTxtAbout = document.querySelector('.profile__subtitle');
+//profile buttons
+const profileEditButtonOpen = document.querySelector('.profile__edit-button');
+const profileCardAddOpen = document.querySelector('.profile__add-button');
+
+//popup (all)
+const popup = document.querySelector('.popup');
+const popupButtonClose = document.querySelector('.popup__close-button');
+//popup profile-edit
+const popupProfileEdit = document.querySelector('.popup_profile-edit');
+const popupProfileEditForm = popupProfileEdit.querySelector('.popup__form_profile-edit');
+const popupProfileEditTxtName = popupProfileEdit.querySelector('.popup__input_profile-edit_name');
+const popupProfileEditTxtAbout = popupProfileEdit.querySelector('.popup__input_profile-edit_about');
+//popup add-card
+const popupCardAdd = document.querySelector('.popup_card-add');
+const popupCardAddForm = popupCardAdd.querySelector('.popup__form_card-add');
+const popupCardAddName = popupCardAdd.querySelector('.popup__input_card-add_name');
+const popupCardAddLink = popupCardAdd.querySelector('.popup__input_card-add_link');
 
 
-
-
-//загрузка текста в попап редактирования профиля
+//popup profile-edit загрузка текста в попап редактирования профиля
 const loadProfileInfo = () => {
-  popupTxtName.value = profileTxtName.textContent.trim();
-  popupTxtAbout.value = profileTxtAbout.textContent.trim();
+  popupProfileEditTxtName.value = profileEditTxtName.textContent.trim();
+  popupProfileEditTxtAbout.value = profileEditTxtAbout.textContent.trim();
 }
 
-//передача текста из попапа редактирования профиля
+//popup profile-edit передача текста из попапа редактирования профиля
 const saveProfileInfo = () => {
-  profileTxtName.textContent = popupTxtName.value;
-  profileTxtAbout.textContent = popupTxtAbout.value;
+  profileEditTxtName.textContent = popupProfileEditTxtName.value;
+  profileEditTxtAbout.textContent = popupProfileEditTxtAbout.value;
 }
 
-//открытие попапа редактирования профиля профиля
-const popupOpen = () => {
+//popup profile-edit открытие попапа редактирования профиля профиля
+const popupProfileEditOpen = () => {
   loadProfileInfo();
-  popupEdit.classList.add('popup_opened');
+  popupProfileEdit.classList.add('popup_opened');
 };
 
-//закрытие попапа редактирования профиля
+//закрытие всех попапаов
 const popupClose = () => {
-  popupEdit.classList.remove('popup_opened');
+  popup.classList.remove('popup_opened');
 };
 
 //сохранение попапа редактирования профиля
@@ -91,7 +98,7 @@ const popupSaveForm = (event) => {
   popupClose();
 }
 
-popupEditButtonOpen.addEventListener('click', popupOpen);
-popupEditButtonClose.addEventListener('click', popupClose);
-popupForm.addEventListener('submit', popupSaveForm);
-
+profileEditButtonOpen.addEventListener('click', popupProfileEditOpen);
+popupButtonClose.addEventListener('click', popupClose);
+popupProfileEditForm.addEventListener('submit', popupSaveForm);
+renderCards();
