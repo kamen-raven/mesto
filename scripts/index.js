@@ -29,22 +29,6 @@ const cardsContainer = document.querySelector('.cards');
 const cardTemplate = document.querySelector('.template-cards').content;
 const cardButtonLike = document.querySelectorAll('.card__like-button');
 
-//создание "изначальных" карточек из массива
-  const createCards = ({name, link}) => {
-    const cardElement = cardTemplate.cloneNode(true);
-      cardElement.querySelector('.card__image').src = link;
-      cardElement.querySelector('.card__image').alt = name;
-      cardElement.querySelector('.card__title').textContent = name;
-      cardsContainer.append(cardElement);
-}
-
-//отрисовка "изначальных" карточек из массива
-  const renderCards = () => {
-/*   cardsContainer.innerHTML = ""; */
-    initialCards.forEach(createCards);
-}
-
-
 //profile
 //profile info content
 const profileEditTxtName = document.querySelector('.profile__title');
@@ -71,6 +55,59 @@ const popupCardAddLink = popupCardAdd.querySelector('.popup__input_card-add_link
 
 
 
+//создание "изначальных" карточек из массива
+  const createCards = ({name, link}) => {
+    const cardElement = cardTemplate.cloneNode(true);
+      cardElement.querySelector('.card__image').src = link;
+      cardElement.querySelector('.card__image').alt = name;
+      cardElement.querySelector('.card__title').textContent = name;
+      cardsContainer.append(cardElement);
+}
+
+//отрисовка "изначальных" карточек из массива
+  const renderCards = (name, link) => {
+    cardsContainer.innerHTML = "";
+    initialCards.forEach(createCards);
+}
+
+
+const addNewCard = (name, link) => {
+  const newCardName = popupCardAddName.value;
+  const newCardLink = popupCardAddLink.value;
+  initialCards.unshift({name: newCardName, link: newCardLink});
+  renderCards();
+}
+
+//сохранение попапа добавления карточек
+const popupCardAddSaveForm = (event) => {
+  event.preventDefault();
+  addNewCard();
+  popupOpenClose(popupCardAdd);
+}
+
+
+
+
+
+
+
+//открытие всех попапов
+const popupOpenClose = (popup) => {
+  popup.classList.toggle('popup_opened');
+};
+
+/*
+//открытие всех попапов
+const popupOpen = (popup) => {
+  popup.classList.add('popup_opened');
+};
+
+//закрытие всех попапаов
+const popupClose = (popup) => {
+  popup.classList.remove('popup_opened');
+};
+ */
+
 //popup profile-edit загрузка текста в попап редактирования профиля
   const loadProfileInfo = () => {
     popupProfileEditTxtName.value = profileEditTxtName.textContent.trim();
@@ -83,65 +120,50 @@ const popupCardAddLink = popupCardAdd.querySelector('.popup__input_card-add_link
     profileEditTxtAbout.textContent = popupProfileEditTxtAbout.value;
 }
 
-//popup profile-edit открытие попапа редактирования профиля профиля
-  const popupOpen = (popup) => {
-    popup.classList.add('popup_opened');
-};
-
-
-//закрытие всех попапаов
-  const popupClose = (popup) => {
-    popup.classList.remove('popup_opened');
-};
 
 //сохранение попапа редактирования профиля
   const popupProfileEditSaveForm = (event) => {
     event.preventDefault();
     saveProfileInfo();
-    popupClose(popupProfileEdit);
+    popupOpenClose(popupProfileEdit);
 }
 
-//сохранение попапа редактирования профиля
-const popupCardAddSaveForm = (event) => {
-  event.preventDefault();
 
-  popupClose(popupCardAdd);
-}
 
 
 
 
 
 //profile-edit buttons events
-  profileEditButtonOpen.addEventListener('click', () => {
+profileEditButtonOpen.addEventListener('click', () => {
     loadProfileInfo();
-    popupOpen(popupProfileEdit);
+    popupOpenClose(popupProfileEdit);
     }
 );
-
-  popupProfileEditButtonClose.addEventListener('click', () => {
-    popupClose(popupProfileEdit);
+popupProfileEditButtonClose.addEventListener('click', () => {
+  popupOpenClose(popupProfileEdit);
     }
 );
-
-  popupProfileEditForm.addEventListener('submit', popupProfileEditSaveForm);
+popupProfileEditForm.addEventListener('submit', popupProfileEditSaveForm);
 
 
 
 //card-add buttons events
-  profileCardAddOpen.addEventListener('click', () => {
-    
-    popupOpen(popupCardAdd)
+profileCardAddOpen.addEventListener('click', () => {
+  popupCardAddName.value = "";
+  popupCardAddLink.value = "";
+  popupOpenClose(popupCardAdd)
     }
 );
-
-  popupCardAddButtonClose.addEventListener('click', () => {
-    popupClose(popupCardAdd);
+popupCardAddButtonClose.addEventListener('click', () => {
+  popupOpenClose(popupCardAdd);
     }
 );
-
 popupCardAddForm.addEventListener('submit', popupCardAddSaveForm);
 
 
 
-  renderCards();
+
+
+renderCards();
+
