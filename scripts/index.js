@@ -72,7 +72,7 @@ const createCards = ({name, link}) => {
     //like-end
     //remove
     const cardButtonRemove = newCard.querySelector('.card__remove-button');
-    const cardButtonRemoveClick = (event) => {
+    const cardButtonRemoveClick = () => {
         cardButtonRemove.closest('.card').remove();}
     cardButtonRemove.addEventListener('click', cardButtonRemoveClick);
     //remove-end
@@ -90,7 +90,7 @@ renderCards();
 
 
 //добавление новой карточки
-const addNewCard = (name, link) => {
+const addNewCard = () => {
   const newCardName = popupCardAddName.value;
   const newCardLink = popupCardAddLink.value;
   const newCard = createCards({name: newCardName, link: newCardLink});
@@ -132,7 +132,7 @@ const popupProfileEditSaveForm = (event) => {
 //--------------КНОПКИ
 
 //profile-edit события кнопок редактирования профиля
-profileEditButtonOpen.addEventListener('click', (event) => {
+profileEditButtonOpen.addEventListener('click', () => {
     loadProfileInfo();
     popupOpenClose(popupProfileEdit);
       }
@@ -152,7 +152,7 @@ profileCardAddOpen.addEventListener('click', () => {
     popupOpenClose(popupCardAdd)
       }
 );
-popupCardAddButtonClose.addEventListener('click', (event) => {
+popupCardAddButtonClose.addEventListener('click', () => {
     popupOpenClose(popupCardAdd);
       }
 );
