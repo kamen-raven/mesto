@@ -28,7 +28,6 @@ const initialCards = [
 const cardsContainer = document.querySelector('.cards');
 const cardTemplate = document.querySelector('.template-cards').content;
 
-
 //profile
 //profile info content
 const profileEditTxtName = document.querySelector('.profile__title');
@@ -53,50 +52,61 @@ const popupCardAddForm = popupCardAdd.querySelector('.popup__form_card-add');
 const popupCardAddName = popupCardAdd.querySelector('.popup__input_card-add_name');
 const popupCardAddLink = popupCardAdd.querySelector('.popup__input_card-add_link');
 
-
-//создание карточек из массива
-const createCards = ({name, link}) => {
-    const cardElement = cardTemplate.cloneNode(true);
-      cardElement.querySelector('.card__image').src = link;
-      cardElement.querySelector('.card__image').alt = name;
-      cardElement.querySelector('.card__title').textContent = name;
-//like
-    const cardButtonLike = cardElement.querySelector('.card__like-button');
-    const cardButtonLikeActive = (event) => {
-        event.target.classList.toggle('card__like-button_active');
-    }
-      cardButtonLike.addEventListener('click', cardButtonLikeActive);
-//like-end
-//remove
-    const cardButtonRemove = cardElement.querySelector('.card__remove-button');
-    const cardButtonRemoveClick = (event) => {
-        cardButtonRemove.closest('.card').remove();
-    }
-      cardButtonRemove.addEventListener('click', cardButtonRemoveClick);
-//remove-end
-      cardsContainer.append(cardElement);
-}
-
-//отрисовка карточек
-const renderCards = (name, link) => {
-    cardsContainer.innerHTML = "";
-    initialCards.forEach(createCards);
-}
-renderCards();
-
-//добавление новой карточки
-const addNewCard = (name, link) => {
-    const newCardName = popupCardAddName.value;
-    const newCardLink = popupCardAddLink.value;
-    initialCards.unshift({name: newCardName, link: newCardLink});
-    renderCards();
-}
-
 //открытие всех попапов
 const popupOpenClose = (popup) => {
   popup.classList.toggle('popup_opened');
 };
 
+//------------------КАРТОЧКИ
+//создание карточки
+const createCards = ({name, link}) => {
+    const newCard = cardTemplate.cloneNode(true);
+          newCard.querySelector('.card__image').src = link;
+          newCard.querySelector('.card__image').alt = name;
+          newCard.querySelector('.card__title').textContent = name;
+    //like
+    const cardButtonLike = newCard.querySelector('.card__like-button');
+    const cardButtonLikeActive = (event) => {
+        event.target.classList.toggle('card__like-button_active'); }
+    cardButtonLike.addEventListener('click', cardButtonLikeActive);
+    //like-end
+    //remove
+    const cardButtonRemove = newCard.querySelector('.card__remove-button');
+    const cardButtonRemoveClick = (event) => {
+        cardButtonRemove.closest('.card').remove();}
+    cardButtonRemove.addEventListener('click', cardButtonRemoveClick);
+    //remove-end
+    return newCard;
+}
+
+//вывод карточек
+const renderCards = () => {
+  for (const i in initialCards){
+    const newCard = createCards({name: initialCards[i].name, link: initialCards[i].link});
+    cardsContainer.append(newCard);
+  }
+}
+renderCards();
+
+
+//добавление новой карточки
+const addNewCard = (name, link) => {
+  const newCardName = popupCardAddName.value;
+  const newCardLink = popupCardAddLink.value;
+  const newCard = createCards({name: newCardName, link: newCardLink});
+  cardsContainer.prepend(newCard);
+}
+
+
+//сохранение попапа добавления карточек
+const popupCardAddSaveForm = (event) => {
+  event.preventDefault();
+  addNewCard();
+  popupOpenClose(popupCardAdd);
+}
+
+
+//-----------РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 
 //загрузка текста в попап редактирования профиля
   const loadProfileInfo = () => {
@@ -110,13 +120,6 @@ const popupOpenClose = (popup) => {
     profileEditTxtAbout.textContent = popupProfileEditTxtAbout.value;
 }
 
-//сохранение попапа добавления карточек
-const popupCardAddSaveForm = (event) => {
-  event.preventDefault();
-  addNewCard();
-  popupOpenClose(popupCardAdd);
-}
-
 //сохранение попапа редактирования профиля
 const popupProfileEditSaveForm = (event) => {
   event.preventDefault();
@@ -126,16 +129,17 @@ const popupProfileEditSaveForm = (event) => {
 
 
 
+//--------------КНОПКИ
 
 //profile-edit события кнопок редактирования профиля
 profileEditButtonOpen.addEventListener('click', (event) => {
     loadProfileInfo();
     popupOpenClose(popupProfileEdit);
-    }
+      }
 );
 popupProfileEditButtonClose.addEventListener('click', () => {
-  popupOpenClose(popupProfileEdit);
-    }
+    popupOpenClose(popupProfileEdit);
+      }
 );
 popupProfileEditForm.addEventListener('submit', popupProfileEditSaveForm);
 
@@ -153,5 +157,3 @@ popupCardAddButtonClose.addEventListener('click', (event) => {
       }
 );
 popupCardAddForm.addEventListener('submit', popupCardAddSaveForm);
-
-
