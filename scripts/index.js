@@ -27,7 +27,7 @@ const initialCards = [
 ];
 const cardsContainer = document.querySelector('.cards');
 const cardTemplate = document.querySelector('.template-cards').content;
-const cardButtonLike = document.querySelectorAll('.card__like-button');
+
 
 //profile
 //profile info content
@@ -54,28 +54,60 @@ const popupCardAddName = popupCardAdd.querySelector('.popup__input_card-add_name
 const popupCardAddLink = popupCardAdd.querySelector('.popup__input_card-add_link');
 
 
-
-//создание "изначальных" карточек из массива
-  const createCards = ({name, link}) => {
+//создание карточек из массива
+const createCards = ({name, link}) => {
     const cardElement = cardTemplate.cloneNode(true);
       cardElement.querySelector('.card__image').src = link;
       cardElement.querySelector('.card__image').alt = name;
       cardElement.querySelector('.card__title').textContent = name;
+//like
+    const cardButtonLike = cardElement.querySelector('.card__like-button');
+    const cardButtonLikeActive = (event) => {
+        event.target.classList.toggle('card__like-button_active');
+    }
+      cardButtonLike.addEventListener('click', cardButtonLikeActive);
+//like-end
+//remove
+    const cardButtonRemove = cardElement.querySelector('.card__remove-button');
+    const cardButtonRemoveClick = (event) => {
+      cardButtonRemove.closest('.card').remove();
+    }
+    cardButtonRemove.addEventListener('click', cardButtonRemoveClick);
+//remove-end
       cardsContainer.append(cardElement);
 }
 
-//отрисовка "изначальных" карточек из массива
-  const renderCards = (name, link) => {
+//отрисовка карточек
+const renderCards = (name, link) => {
     cardsContainer.innerHTML = "";
     initialCards.forEach(createCards);
 }
+renderCards();
 
-
+//добавление новой карточки
 const addNewCard = (name, link) => {
-  const newCardName = popupCardAddName.value;
-  const newCardLink = popupCardAddLink.value;
-  initialCards.unshift({name: newCardName, link: newCardLink});
-  renderCards();
+    const newCardName = popupCardAddName.value;
+    const newCardLink = popupCardAddLink.value;
+    initialCards.unshift({name: newCardName, link: newCardLink});
+    renderCards();
+}
+
+//открытие всех попапов
+const popupOpenClose = (popup) => {
+  popup.classList.toggle('popup_opened');
+};
+
+
+//загрузка текста в попап редактирования профиля
+  const loadProfileInfo = () => {
+    popupProfileEditTxtName.value = profileEditTxtName.textContent.trim();
+    popupProfileEditTxtAbout.value = profileEditTxtAbout.textContent.trim();
+}
+
+//передача текста из попапа редактирования профиля
+  const saveProfileInfo = () => {
+    profileEditTxtName.textContent = popupProfileEditTxtName.value;
+    profileEditTxtAbout.textContent = popupProfileEditTxtAbout.value;
 }
 
 //сохранение попапа добавления карточек
@@ -85,57 +117,18 @@ const popupCardAddSaveForm = (event) => {
   popupOpenClose(popupCardAdd);
 }
 
-
-
-
-
-
-
-//открытие всех попапов
-const popupOpenClose = (popup) => {
-  popup.classList.toggle('popup_opened');
-};
-
-/*
-//открытие всех попапов
-const popupOpen = (popup) => {
-  popup.classList.add('popup_opened');
-};
-
-//закрытие всех попапаов
-const popupClose = (popup) => {
-  popup.classList.remove('popup_opened');
-};
- */
-
-//popup profile-edit загрузка текста в попап редактирования профиля
-  const loadProfileInfo = () => {
-    popupProfileEditTxtName.value = profileEditTxtName.textContent.trim();
-    popupProfileEditTxtAbout.value = profileEditTxtAbout.textContent.trim();
-}
-
-//popup profile-edit передача текста из попапа редактирования профиля
-  const saveProfileInfo = () => {
-    profileEditTxtName.textContent = popupProfileEditTxtName.value;
-    profileEditTxtAbout.textContent = popupProfileEditTxtAbout.value;
-}
-
-
 //сохранение попапа редактирования профиля
-  const popupProfileEditSaveForm = (event) => {
-    event.preventDefault();
-    saveProfileInfo();
-    popupOpenClose(popupProfileEdit);
+const popupProfileEditSaveForm = (event) => {
+  event.preventDefault();
+  saveProfileInfo();
+  popupOpenClose(popupProfileEdit);
 }
 
 
 
 
-
-
-
-//profile-edit buttons events
-profileEditButtonOpen.addEventListener('click', () => {
+//profile-edit события кнопок редактирования профиля
+profileEditButtonOpen.addEventListener('click', (event) => {
     loadProfileInfo();
     popupOpenClose(popupProfileEdit);
     }
@@ -148,22 +141,17 @@ popupProfileEditForm.addEventListener('submit', popupProfileEditSaveForm);
 
 
 
-//card-add buttons events
+//card-add события кнопок добавления карточек
 profileCardAddOpen.addEventListener('click', () => {
-  popupCardAddName.value = "";
-  popupCardAddLink.value = "";
-  popupOpenClose(popupCardAdd)
-    }
+    popupCardAddName.value = "";
+    popupCardAddLink.value = "";
+    popupOpenClose(popupCardAdd)
+      }
 );
-popupCardAddButtonClose.addEventListener('click', () => {
-  popupOpenClose(popupCardAdd);
-    }
+popupCardAddButtonClose.addEventListener('click', (event) => {
+    popupOpenClose(popupCardAdd);
+      }
 );
 popupCardAddForm.addEventListener('submit', popupCardAddSaveForm);
 
-
-
-
-
-renderCards();
 
