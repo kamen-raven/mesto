@@ -9,7 +9,7 @@
 
 @media (max-width: 720px) {
   .popup__container {
-    margin: 0 50px;
+    margin: 0 40px;
     max-width: 240px;
   }
 }

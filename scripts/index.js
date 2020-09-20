@@ -70,9 +70,9 @@ const createCards = ({name, link}) => {
 //remove
     const cardButtonRemove = cardElement.querySelector('.card__remove-button');
     const cardButtonRemoveClick = (event) => {
-      cardButtonRemove.closest('.card').remove();
+        cardButtonRemove.closest('.card').remove();
     }
-    cardButtonRemove.addEventListener('click', cardButtonRemoveClick);
+      cardButtonRemove.addEventListener('click', cardButtonRemoveClick);
 //remove-end
       cardsContainer.append(cardElement);
 }
