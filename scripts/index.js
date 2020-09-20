@@ -51,11 +51,35 @@ const popupCardAddButtonClose = popupCardAdd.querySelector('.popup__close-button
 const popupCardAddForm = popupCardAdd.querySelector('.popup__form_card-add');
 const popupCardAddName = popupCardAdd.querySelector('.popup__input_card-add_name');
 const popupCardAddLink = popupCardAdd.querySelector('.popup__input_card-add_link');
+const popupCardAddButtonImage = document.querySelector('.card__image-button');
+//popup image-view
+const popupImageView = document.querySelector('.popup_image-view');
+const popupImageViewButtonClose = popupImageView.querySelector('.popup__close-button');
+const popupImageViewBigImage = popupImageView.querySelector('.popup__figure-img');
+const popupImageViewCaption = popupImageView.querySelector('.popup__figure-caption');
+
+
+    //image-view
+/*     const popupCardAddImage = document.querySelector('.card__image');
+    const popupCardAddImageCaption = document.querySelector('.card__title');
+  */
+    //image-view-end
 
 //открытие всех попапов
 const popupOpenClose = (popup) => {
   popup.classList.toggle('popup_opened');
 };
+
+
+
+const cardsImageButtonListener = (btn) => {
+  const buttonImage = btn.querySelector('.card__image-button');
+  buttonImage.addEventListener('click', (event) => {
+    event.target.closest('.card');
+    popupOpenClose(popupImageView);
+  });
+}
+
 
 //------------------КАРТОЧКИ
 //создание карточки
@@ -76,6 +100,7 @@ const createCards = ({name, link}) => {
         cardButtonRemove.closest('.card').remove();}
     cardButtonRemove.addEventListener('click', cardButtonRemoveClick);
     //remove-end
+    cardsImageButtonListener(newCard);
     return newCard;
 }
 
@@ -98,12 +123,30 @@ const addNewCard = () => {
 }
 
 
+
+
+
 //сохранение попапа добавления карточек
 const popupCardAddSaveForm = (event) => {
   event.preventDefault();
   addNewCard();
   popupOpenClose(popupCardAdd);
 }
+
+
+
+
+
+const popupImageVievOpen = (event) => {
+  popupOpenClose(popupImageView);
+  const cardImage = event.target.closest('.card__image');
+  popupImageViewBigImage.src = cardImage.querySelector('.card__image').src;
+
+
+}
+
+
+
 
 
 //-----------РЕДАКТИРОВАНИЕ ПРОФИЛЯ
