@@ -59,29 +59,27 @@ const popupImageViewBigImage = popupImageView.querySelector('.popup__figure-img'
 const popupImageViewCaption = popupImageView.querySelector('.popup__figure-caption');
 
 
-    //image-view
-/*     const popupCardAddImage = document.querySelector('.card__image');
-    const popupCardAddImageCaption = document.querySelector('.card__title');
-  */
-    //image-view-end
-
 //открытие всех попапов
 const popupOpenClose = (popup) => {
   popup.classList.toggle('popup_opened');
 };
 
+//------------------КАРТОЧКИ
 
-
+//подписываемся на кнопки у карточек
 const cardsImageButtonListener = (btn) => {
   const buttonImage = btn.querySelector('.card__image-button');
   buttonImage.addEventListener('click', (event) => {
     event.target.closest('.card');
+    const img = event.target.closest('.card__image');
+    popupImageViewBigImage.src = img.src;
+    popupImageViewBigImage.alt = img.alt;
+    popupImageViewCaption.textContent = img.alt;
     popupOpenClose(popupImageView);
   });
 }
 
 
-//------------------КАРТОЧКИ
 //создание карточки
 const createCards = ({name, link}) => {
     const newCard = cardTemplate.cloneNode(true);
@@ -101,7 +99,7 @@ const createCards = ({name, link}) => {
     cardButtonRemove.addEventListener('click', cardButtonRemoveClick);
     //remove-end
     cardsImageButtonListener(newCard);
-    return newCard;
+  return newCard;
 }
 
 //вывод карточек
@@ -113,7 +111,6 @@ const renderCards = () => {
 }
 renderCards();
 
-
 //добавление новой карточки
 const addNewCard = () => {
   const newCardName = popupCardAddName.value;
@@ -123,9 +120,6 @@ const addNewCard = () => {
 }
 
 
-
-
-
 //сохранение попапа добавления карточек
 const popupCardAddSaveForm = (event) => {
   event.preventDefault();
@@ -133,21 +127,11 @@ const popupCardAddSaveForm = (event) => {
   popupOpenClose(popupCardAdd);
 }
 
-
-
-
-
 const popupImageVievOpen = (event) => {
   popupOpenClose(popupImageView);
   const cardImage = event.target.closest('.card__image');
-  popupImageViewBigImage.src = cardImage.querySelector('.card__image').src;
-
-
+  popupImageViewBigImage.src = cardImage.src;
 }
-
-
-
-
 
 //-----------РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 
@@ -169,7 +153,6 @@ const popupProfileEditSaveForm = (event) => {
   saveProfileInfo();
   popupOpenClose(popupProfileEdit);
 }
-
 
 
 //--------------КНОПКИ
@@ -200,3 +183,9 @@ popupCardAddButtonClose.addEventListener('click', () => {
       }
 );
 popupCardAddForm.addEventListener('submit', popupCardAddSaveForm);
+
+
+//закрытие попапа большой карточки
+popupImageViewButtonClose.addEventListener('click',  () => {
+  popupOpenClose(popupImageView);
+    });
