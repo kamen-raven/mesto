@@ -36,9 +36,6 @@ const profileEditTxtAbout = document.querySelector('.profile__subtitle');
 const profileEditButtonOpen = document.querySelector('.profile__edit-button');
 const profileCardAddOpen = document.querySelector('.profile__add-button');
 
-//popup (all)
-const popup = document.querySelector('.popup');
-
 //popup profile-edit
 const popupProfileEdit = document.querySelector('.popup_profile-edit');
 const popupProfileEditButtonClose = popupProfileEdit.querySelector('.popup__close-button');
@@ -67,10 +64,9 @@ const popupOpenClose = (popup) => {
 //------------------КАРТОЧКИ
 
 //подписываемся на кнопки у карточек
-const cardsImageButtonListener = (btn) => {
-  const buttonImage = btn.querySelector('.card__image-button');
+const cardsImageButtonListener = (card) => {
+  const buttonImage = card.querySelector('.card__image-button');
   buttonImage.addEventListener('click', (event) => {
-    event.target.closest('.card');
     const img = event.target.closest('.card__image');
     popupImageViewBigImage.src = img.src;
     popupImageViewBigImage.alt = img.alt;
@@ -102,13 +98,15 @@ const createCards = ({name, link}) => {
   return newCard;
 }
 
-//вывод карточек
+
 const renderCards = () => {
-  for (const i in initialCards){
-    const newCard = createCards({name: initialCards[i].name, link: initialCards[i].link});
+  initialCards.forEach(function ({name, link}) {
+    const newCard = createCards({name, link});
     cardsContainer.append(newCard);
-  }
+  });
 }
+
+
 renderCards();
 
 //добавление новой карточки
@@ -127,11 +125,6 @@ const popupCardAddSaveForm = (event) => {
   popupOpenClose(popupCardAdd);
 }
 
-const popupImageVievOpen = (event) => {
-  popupOpenClose(popupImageView);
-  const cardImage = event.target.closest('.card__image');
-  popupImageViewBigImage.src = cardImage.src;
-}
 
 //-----------РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 
