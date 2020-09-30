@@ -73,21 +73,31 @@
                 novalidate>
             <fieldset class="popup__profile-fieldset">
               <input class="popup__input popup__input_profile-edit_name"
+                      id="input--profile-name"
                       type="text"
                       name="name"
                       placeholder="Имя"
                       minlength="2"
                       maxlength="40"
                       value=""
+                      autocomplete="off"
                       required>
+              <span class="popup__input-error"
+                    id="input--profile-name-error">
+              </span>
               <input class="popup__input popup__input_profile-edit_about"
+                      id="input-profile-about"
                       type="text"
                       name="about"
                       placeholder="О себе"
                       minlength="2"
                       maxlength="200"
                       value=""
+                      autocomplete="off"
                       required>
+              <span class="popup__input-error"
+                    id="input-profile-about-error">
+              </span>
             </fieldset>
             <button class="popup__save-button"
                     type="submit">
@@ -123,19 +133,29 @@
                 novalidate>
             <fieldset class="popup__profile-fieldset">
               <input class="popup__input popup__input_card-add_name"
+                      id="input-card-name"
                       type="text"
                       name="name"
                       placeholder="Название"
                       minlength="2"
                       maxlength="30"
                       value=""
+                      autocomplete="off"
                       required>
+              <span class="popup__input-error"
+                    id="input-card-name-error">
+              </span>
               <input class="popup__input popup__input_card-add_link"
+                      id="input-card-url"
                       type="url"
                       name="link"
                       placeholder="Ссылка на картинку"
                       value=""
+                      autocomplete="off"
                       required>
+              <span class="popup__input-error"
+                    id="input-card-url-error">
+              </span>
             </fieldset>
             <button class="popup__save-button"
                     type="submit">
@@ -201,7 +221,8 @@
       </div>
     </template>
   </div>
-<!--script-->
+<!--scripts-->
+  <script src="./scripts/validate.js" defer></script>
   <script src="./scripts/index.js" defer></script>
 </body>
 </html>

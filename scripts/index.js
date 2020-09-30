@@ -68,9 +68,9 @@ const cardsImageButtonListener = (card) => {
   const buttonImage = card.querySelector('.card__image-button');
   buttonImage.addEventListener('click', (event) => {
     const img = event.target.closest('.card__image');
-    popupImageViewBigImage.src = img.src;
-    popupImageViewBigImage.alt = img.alt;
-    popupImageViewCaption.textContent = img.alt;
+      popupImageViewBigImage.src = img.src;
+      popupImageViewBigImage.alt = img.alt;
+      popupImageViewCaption.textContent = img.alt;
     popupOpenClose(popupImageView);
   });
 }
@@ -181,4 +181,6 @@ popupCardAddForm.addEventListener('submit', popupCardAddSaveForm);
 //закрытие попапа большой карточки
 popupImageViewButtonClose.addEventListener('click',  () => {
   popupOpenClose(popupImageView);
-    });
+    }
+);
+
