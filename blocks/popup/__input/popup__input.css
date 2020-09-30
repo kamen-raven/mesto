@@ -14,9 +14,16 @@
   width: 100%;
 }
 
+
 .popup__input:focus {
   outline: none;
 }
+
+
+.popup__input:invalid {
+  border-bottom: 1px solid #FF0000;
+}
+
 
 .popup__input:first-child {
   margin: 0 0 29px;

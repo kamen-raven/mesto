@@ -50,6 +50,14 @@
         &copy; 2020 Mesto Russia
       </p>
     </footer>
+
+
+
+
+
+
+
+
 <!--popupProfileEdit-->
     <div class="popup popup_profile-edit">
       <div class="popup__container popup__container_create_form">
@@ -61,20 +69,25 @@
             Редактировать профиль
           </h2>
           <form class="popup__form popup__form_profile-edit"
-                name="profile-info">
+                name="profile-info"
+                novalidate>
             <fieldset class="popup__profile-fieldset">
               <input class="popup__input popup__input_profile-edit_name"
                       type="text"
                       name="name"
                       placeholder="Имя"
-                      required
-                      value="">
+                      minlength="2"
+                      maxlength="40"
+                      value=""
+                      required>
               <input class="popup__input popup__input_profile-edit_about"
                       type="text"
                       name="about"
                       placeholder="О себе"
-                      required
-                      value="">
+                      minlength="2"
+                      maxlength="200"
+                      value=""
+                      required>
             </fieldset>
             <button class="popup__save-button"
                     type="submit">
@@ -84,6 +97,17 @@
         </div>
       </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
 <!--popupCardAdd-->
     <div class="popup popup_card-add">
       <div class="popup__container popup__container_create_form">
@@ -95,20 +119,23 @@
             Новое место
           </h2>
           <form class="popup__form popup__form_card-add"
-                name="add new card">
+                name="add new card"
+                novalidate>
             <fieldset class="popup__profile-fieldset">
               <input class="popup__input popup__input_card-add_name"
                       type="text"
                       name="name"
                       placeholder="Название"
-                      required
-                      value="">
+                      minlength="2"
+                      maxlength="30"
+                      value=""
+                      required>
               <input class="popup__input popup__input_card-add_link"
-                      type="text"
+                      type="url"
                       name="link"
                       placeholder="Ссылка на картинку"
-                      required
-                      value="">
+                      value=""
+                      required>
             </fieldset>
             <button class="popup__save-button"
                     type="submit">
@@ -118,6 +145,25 @@
         </div>
       </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!--popupImageView-->
     <div class="popup popup_image-view">
       <div class="popup__container popup__container_create_view">
