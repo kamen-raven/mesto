@@ -11,16 +11,19 @@ enableValidation({
 });
  */
 
+ //показать ошибку
 const showInputError = (popupFormElement, inputElement, errorMessage) => {
   const errorElement = popupFormElement.querySelector(`#${inputElement.id}-error`);
     errorElement.textContent = errorMessage;
 }
 
+//спрятать ошибку
 const hideInputError = (popupFormElement, inputElement) => {
   const errorElement = popupFormElement.querySelector(`#${inputElement.id}-error`);
     errorElement.textContent = "";
 }
 
+//проверка на валидность
 const checkInputValidity = (popupFormElement, inputElement) => {
   const notValidInput = !inputElement.validity.valid;
     if (notValidInput) {
@@ -31,10 +34,7 @@ const checkInputValidity = (popupFormElement, inputElement) => {
     }
 }
 
-
-
-
-
+//слушатели
 const setEventListeners = (popupFormElement) => {
   const inputList = Array.from(popupFormElement.querySelectorAll('.popup__input'));
   inputList.forEach((inputElement) => {
@@ -44,13 +44,12 @@ const setEventListeners = (popupFormElement) => {
   });
 }
 
-
-
+//запускаем валидацию
 const enableValidation = () => {
   const popupFormList = Array.from(document.querySelectorAll('.popup__form'));
     popupFormList.forEach((popupFormElement) => {
       popupFormElement.addEventListener('submit', (event) => {
-        event.preventDefault();
+        event.preventDefault();  //не отправляем форму
       });
       setEventListeners(popupFormElement);
     });
