@@ -14,12 +14,16 @@ enableValidation({
  //показать ошибку
 const showInputError = (popupFormElement, inputElement, errorMessage) => {
   const errorElement = popupFormElement.querySelector(`#${inputElement.id}-error`);
+    inputElement.classList.add('popup__input_type_error');
+    errorElement.classList.add('popup__input-error_active');
     errorElement.textContent = errorMessage;
 }
 
 //спрятать ошибку
 const hideInputError = (popupFormElement, inputElement) => {
   const errorElement = popupFormElement.querySelector(`#${inputElement.id}-error`);
+    inputElement.classList.remove('popup__input_type_error');
+    errorElement.classList.remove('popup__input-error_active');
     errorElement.textContent = "";
 }
 
@@ -44,6 +48,10 @@ const setEventListeners = (popupFormElement) => {
   });
 }
 
+
+
+
+
 //запускаем валидацию
 const enableValidation = () => {
   const popupFormList = Array.from(document.querySelectorAll('.popup__form'));
@@ -51,9 +59,8 @@ const enableValidation = () => {
       popupFormElement.addEventListener('submit', (event) => {
         event.preventDefault();  //не отправляем форму
       });
-      setEventListeners(popupFormElement);
-    });
-
+    setEventListeners(popupFormElement);
+  });
 }
 
 enableValidation()

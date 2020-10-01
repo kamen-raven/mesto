@@ -53,9 +53,12 @@
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/__profile-fieldset/popup__profile-fieldset.css);
 @import url(../blocks/popup/__input/popup__input.css);
+@import url(../blocks/popup/__input/_type/popup__input_type_error.css);
 @import url(../blocks/popup/__save-button/popup__save-button.css);
+@import url(../blocks/popup/__save-button/_disapled/popup__save-button_disabled.css);
 @import url(../blocks/popup/_image-view/popup_image-view.css);
 @import url(../blocks/popup/__figure-content/popup__figure-content.css);
 @import url(../blocks/popup/__figure-img/popup__figure-img.css);
 @import url(../blocks/popup/__figure-caption/popup__figure-caption.css);
 @import url(../blocks/popup/__input-error/popup__input-error.css);
+@import url(../blocks/popup/__input-error/_active/popup__input-error_active.css);
