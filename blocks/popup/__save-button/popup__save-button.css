@@ -16,13 +16,19 @@
   line-height: 22px;
   text-align: center;
   color: #FFFFFF;
-  }
+  user-select: none;
+}
 
   .popup__save-button:hover {
     cursor: pointer;
     opacity: .8;
     transition: opacity .3s ease-in;
-  }
+}
+
+
+.popup__save-button:disabled {
+  pointer-events: none;
+}
 
 @media (max-width: 720px) {
   .popup__save-button{

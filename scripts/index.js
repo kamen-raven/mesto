@@ -168,7 +168,7 @@ popupProfileEditForm.addEventListener('submit', popupProfileEditSaveForm);
 profileCardAddOpen.addEventListener('click', () => {
     popupCardAddName.value = "";
     popupCardAddLink.value = "";
-    popupOpenClose(popupCardAdd)
+    popupOpenClose(popupCardAdd);
       }
 );
 popupCardAddButtonClose.addEventListener('click', () => {

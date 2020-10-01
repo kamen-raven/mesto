@@ -7,7 +7,7 @@ enableValidation({
   submitButtonSelector: '.popup__save-button',
   inactiveButtonClass: 'popup__save-button_disabled',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
+  errorClass: 'popup__input-error_active'
 });
  */
 
@@ -38,16 +38,36 @@ const checkInputValidity = (popupFormElement, inputElement) => {
     }
 }
 
-//слушатели
-const setEventListeners = (popupFormElement) => {
-  const inputList = Array.from(popupFormElement.querySelectorAll('.popup__input'));
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', () => {
-      checkInputValidity(popupFormElement, inputElement);
-    })
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
   });
 }
 
+
+const togglePopupSaveButtonState = (inputList, popupSaveButton) => {
+  if (hasInvalidInput(inputList)) {
+    popupSaveButton.classList.add('popup__save-button_disabled');
+    popupSaveButton.setAttribute('disabled', true);
+  } else {
+    popupSaveButton.classList.remove('popup__save-button_disabled');
+    popupSaveButton.removeAttribute('disabled');
+  }
+}
+
+
+//слушатели
+const setEventListeners = (popupFormElement) => {
+  const inputList = Array.from(popupFormElement.querySelectorAll('.popup__input'));
+  const popupSaveButton = popupFormElement.querySelector('.popup__save-button');
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      checkInputValidity(popupFormElement, inputElement);
+      togglePopupSaveButtonState(inputList, popupSaveButton);
+    });
+  });
+  togglePopupSaveButtonState(inputList, popupSaveButton);
+}
 
 
 
