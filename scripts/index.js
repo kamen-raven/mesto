@@ -59,7 +59,19 @@ const popupImageViewCaption = popupImageView.querySelector('.popup__figure-capti
 //открытие всех попапов
 const popupOpenClose = (popup) => {
   popup.classList.toggle('popup_opened');
+
 };
+
+
+/* const popupOpen = () => {
+  loadProfileInfo();
+  popupEdit.classList.add('popup_opened');
+};
+
+const popupClose = () => {
+  popupEdit.classList.remove('popup_opened');
+}; */
+
 
 //------------------КАРТОЧКИ
 
@@ -74,7 +86,6 @@ const cardsImageButtonListener = (card) => {
     popupOpenClose(popupImageView);
   });
 }
-
 
 //создание карточки
 const createCards = ({name, link}) => {
@@ -148,26 +159,36 @@ const popupProfileEditSaveForm = (event) => {
 }
 
 
+const pressEscButton = (event) => {
+  if (event.key === 'Escape') {
+    formSelector.classList.remove('popup_opened');
+  }
+}
+
 //--------------КНОПКИ
 
 //profile-edit события кнопок редактирования профиля
 profileEditButtonOpen.addEventListener('click', () => {
     loadProfileInfo();
     popupOpenClose(popupProfileEdit);
-      }
-);
+  }
+)
 popupProfileEditButtonClose.addEventListener('click', () => {
     popupOpenClose(popupProfileEdit);
       }
 );
+
+
 popupProfileEditForm.addEventListener('submit', popupProfileEditSaveForm);
+
+
 
 
 
 //card-add события кнопок добавления карточек
 profileCardAddOpen.addEventListener('click', () => {
-    popupCardAddName.value = "";
-    popupCardAddLink.value = "";
+    const form = document.forms.addNewCard;
+    form.reset();
     popupOpenClose(popupCardAdd);
       }
 );
