@@ -59,19 +59,18 @@ const popupImageViewCaption = popupImageView.querySelector('.popup__figure-capti
 
 
 //открытие всех попапов
-const popupOpenClose = (popup) => {
+/* const popupOpenClose = (popup) => {
   popup.classList.toggle('popup_opened');
 };
+ */
 
-
-/* const popupOpen = () => {
-  loadProfileInfo();
-  popupEdit.classList.add('popup_opened');
+const popupOpen = (popup) => {
+  popup.classList.add('popup_opened');
 };
 
-const popupClose = () => {
-  popupEdit.classList.remove('popup_opened');
-}; */
+const popupClose = (popup) => {
+  popup.classList.remove('popup_opened');
+};
 
 
 //------------------КАРТОЧКИ
@@ -84,7 +83,7 @@ const cardsImageButtonListener = (card) => {
       popupImageViewBigImage.src = img.src;
       popupImageViewBigImage.alt = img.alt;
       popupImageViewCaption.textContent = img.alt;
-    popupOpenClose(popupImageView);
+      popupOpen(popupImageView);
   });
 }
 
@@ -134,7 +133,7 @@ const addNewCard = () => {
 const popupCardAddSaveForm = (event) => {
   event.preventDefault();
   addNewCard();
-  popupOpenClose(popupCardAdd);
+  popupClose(popupCardAdd);
 }
 
 
@@ -156,7 +155,7 @@ const popupCardAddSaveForm = (event) => {
 const popupProfileEditSaveForm = (event) => {
   event.preventDefault();
   saveProfileInfo();
-  popupOpenClose(popupProfileEdit);
+  popupClose(popupProfileEdit);
 }
 
 
@@ -168,11 +167,11 @@ const popupProfileEditSaveForm = (event) => {
  */
 
 
-const popupCloseByOverlay = (popup) => {
-  if (popup.target != popup.currentTarget) {
+const popupCloseByOverlay = (event, popup) => {
+  if (event.target != event.currentTarget) {
     return
   }
-  popupOpenClose(popup);
+  popupClose(popup);
 }
 
 
@@ -182,20 +181,17 @@ const popupCloseByOverlay = (popup) => {
 //profile-edit события кнопок редактирования профиля
 profileEditButtonOpen.addEventListener('click', () => {
     loadProfileInfo();
-    popupOpenClose(popupProfileEdit);
+    popupOpen(popupProfileEdit);
   }
 )
 popupProfileEditButtonClose.addEventListener('click', () => {
-    popupOpenClose(popupProfileEdit);
+    popupClose(popupProfileEdit);
       }
 );
 
-popupActive.addEventListener('click', () => {
-  popupCloseByOverlay(popupProfileEdit)
+popupProfileEdit.addEventListener('click', (event) => {
+  popupCloseByOverlay(event, popupProfileEdit)
 });
-
-
-
 
 popupProfileEditForm.addEventListener('submit', popupProfileEditSaveForm);
 
@@ -207,19 +203,27 @@ popupProfileEditForm.addEventListener('submit', popupProfileEditSaveForm);
 profileCardAddOpen.addEventListener('click', () => {
     const form = document.forms.addNewCard;
     form.reset();
-    popupOpenClose(popupCardAdd);
+    popupOpen(popupCardAdd);
       }
 );
 popupCardAddButtonClose.addEventListener('click', () => {
-    popupOpenClose(popupCardAdd);
+    popupClose(popupCardAdd);
       }
 );
+
+popupCardAdd.addEventListener('click', (event) => {
+  popupCloseByOverlay(event, popupCardAdd)
+});
+
 popupCardAddForm.addEventListener('submit', popupCardAddSaveForm);
 
 
 //закрытие попапа большой карточки
 popupImageViewButtonClose.addEventListener('click',  () => {
-  popupOpenClose(popupImageView);
+  popupClose(popupImageView);
     }
 );
 
+popupImageView.addEventListener('click', (event) => {
+  popupCloseByOverlay(event, popupImageView)
+});
