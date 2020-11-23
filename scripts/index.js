@@ -166,7 +166,7 @@ const popupProfileEditSaveForm = (event) => {
 }
  */
 
-
+//функция закрытия по оверлею
 const popupCloseByOverlay = (event, popup) => {
   if (event.target != event.currentTarget) {
     return
@@ -188,8 +188,8 @@ popupProfileEditButtonClose.addEventListener('click', () => {
     popupClose(popupProfileEdit);
       }
 );
-
-popupProfileEdit.addEventListener('click', (event) => {
+//profile-edit закрытие по оверлею
+popupProfileEdit.addEventListener('mousedown', (event) => {
   popupCloseByOverlay(event, popupProfileEdit)
 });
 
@@ -210,8 +210,8 @@ popupCardAddButtonClose.addEventListener('click', () => {
     popupClose(popupCardAdd);
       }
 );
-
-popupCardAdd.addEventListener('click', (event) => {
+//card-add закрытие по оверлею
+popupCardAdd.addEventListener('mousedown', (event) => {
   popupCloseByOverlay(event, popupCardAdd)
 });
 
@@ -223,7 +223,7 @@ popupImageViewButtonClose.addEventListener('click',  () => {
   popupClose(popupImageView);
     }
 );
-
-popupImageView.addEventListener('click', (event) => {
+//закрытие по оверлею большой карточки
+popupImageView.addEventListener('mousedown', (event) => {
   popupCloseByOverlay(event, popupImageView)
 });
