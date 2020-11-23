@@ -71,7 +71,7 @@ const setEventListeners = (popupFormElement) => {
       checkInputValidity(popupFormElement, inputElement);
     });
   });
-  togglePopupSaveButtonState(inputList, popupSaveButton);
+togglePopupSaveButtonState(inputList, popupSaveButton);
 }
 
 

@@ -36,6 +36,8 @@ const profileEditTxtAbout = document.querySelector('.profile__subtitle');
 const profileEditButtonOpen = document.querySelector('.profile__edit-button');
 const profileCardAddOpen = document.querySelector('.profile__add-button');
 
+const popupActive = document.querySelector('.popup');
+
 //popup profile-edit
 const popupProfileEdit = document.querySelector('.popup_profile-edit');
 const popupProfileEditButtonClose = popupProfileEdit.querySelector('.popup__close-button');
@@ -59,7 +61,6 @@ const popupImageViewCaption = popupImageView.querySelector('.popup__figure-capti
 //открытие всех попапов
 const popupOpenClose = (popup) => {
   popup.classList.toggle('popup_opened');
-
 };
 
 
@@ -159,11 +160,22 @@ const popupProfileEditSaveForm = (event) => {
 }
 
 
-const pressEscButton = (event) => {
+/* const pressEscButton = (event) => {
   if (event.key === 'Escape') {
     formSelector.classList.remove('popup_opened');
   }
 }
+ */
+
+
+const popupCloseByOverlay = (popup) => {
+  if (popup.target != popup.currentTarget) {
+    return
+  }
+  popupOpenClose(popup);
+}
+
+
 
 //--------------КНОПКИ
 
@@ -177,6 +189,12 @@ popupProfileEditButtonClose.addEventListener('click', () => {
     popupOpenClose(popupProfileEdit);
       }
 );
+
+popupActive.addEventListener('click', () => {
+  popupCloseByOverlay(popupProfileEdit)
+});
+
+
 
 
 popupProfileEditForm.addEventListener('submit', popupProfileEditSaveForm);
