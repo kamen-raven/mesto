@@ -85,7 +85,7 @@ const popupCloseByOverlay = (event, popup) => {
 
 
 //функция закрытия попапов по esc
-function keyHandlerEsc(event, popup) {
+function keyHandlerEsc(event) {
   if (event.key === 'Escape') {
     popupClose(document.querySelector('.popup_opened'));
   }
