@@ -36,7 +36,6 @@ const profileEditTxtAbout = document.querySelector('.profile__subtitle');
 const profileEditButtonOpen = document.querySelector('.profile__edit-button');
 const profileCardAddOpen = document.querySelector('.profile__add-button');
 
-const popupActive = document.querySelector('.popup');
 
 //popup profile-edit
 const popupProfileEdit = document.querySelector('.popup_profile-edit');
@@ -63,14 +62,36 @@ const popupImageViewCaption = popupImageView.querySelector('.popup__figure-capti
   popup.classList.toggle('popup_opened');
 };
  */
-
+//открытие и закрытие попапов
 const popupOpen = (popup) => {
   popup.classList.add('popup_opened');
+    document.addEventListener('keydown', keyHandlerEsc);
 };
 
 const popupClose = (popup) => {
   popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', keyHandlerEsc);
 };
+
+//----------------------ФУНКЦИИ ЗАКРЫТИЯ ПОПАПОВ
+
+//функция закрытия по оверлею
+const popupCloseByOverlay = (event, popup) => {
+  if (event.target != event.currentTarget) {
+    return
+  }
+  popupClose(popup);
+}
+
+
+//функция закрытия попапов по esc
+function keyHandlerEsc(event, popup) {
+  if (event.key === 'Escape') {
+    popupClose(document.querySelector('.popup_opened'));
+  }
+}
+
+
 
 
 //------------------КАРТОЧКИ
@@ -159,24 +180,12 @@ const popupProfileEditSaveForm = (event) => {
 }
 
 
-/* const pressEscButton = (event) => {
-  if (event.key === 'Escape') {
-    formSelector.classList.remove('popup_opened');
-  }
-}
- */
-
-//функция закрытия по оверлею
-const popupCloseByOverlay = (event, popup) => {
-  if (event.target != event.currentTarget) {
-    return
-  }
-  popupClose(popup);
-}
 
 
 
-//--------------КНОПКИ
+
+
+//--------------КНОПКИ СЛУШАТЕЛИ СОБЫТИЙ
 
 //profile-edit события кнопок редактирования профиля
 profileEditButtonOpen.addEventListener('click', () => {
