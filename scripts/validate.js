@@ -49,7 +49,8 @@ const hasInvalidInput = (inputList) => {
 }
 
 
-const togglePopupSaveButtonState = (inputList, popupSaveButton, classes) => {
+const togglePopupSaveButtonState = (inputList, popupFormElement, classes) => {
+  const popupSaveButton = popupFormElement.querySelector(classes.submitButtonSelector);
   if (hasInvalidInput(inputList)) {
     popupSaveButton.classList.add(classes.inactiveButtonClass);
     popupSaveButton.setAttribute('disabled', true);
@@ -64,17 +65,16 @@ const togglePopupSaveButtonState = (inputList, popupSaveButton, classes) => {
 //слушатели
 const setEventListeners = (popupFormElement, classes) => {
   const inputList = Array.from(popupFormElement.querySelectorAll(classes.inputSelector));
-  const popupSaveButton = popupFormElement.querySelector(classes.submitButtonSelector);
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
-        togglePopupSaveButtonState(inputList, popupSaveButton, classes);
+        togglePopupSaveButtonState(inputList, popupFormElement, classes);
         checkInputValidity(popupFormElement, inputElement, classes);
       });
     });
 
 
 
-togglePopupSaveButtonState(inputList, popupSaveButton, classes);
+togglePopupSaveButtonState(inputList, popupFormElement, classes);
 }
 
 
@@ -84,10 +84,10 @@ togglePopupSaveButtonState(inputList, popupSaveButton, classes);
 const enableValidation = (classes) => {
   const popupFormList = Array.from(document.querySelectorAll(classes.formSelector));
     popupFormList.forEach((popupFormElement) => {
-      setEventListeners(popupFormElement, classes);
       popupFormElement.addEventListener('submit', (event) => {
         event.preventDefault();  //не отправляем форму
       });
+    setEventListeners(popupFormElement, classes);
   });
 }
 
