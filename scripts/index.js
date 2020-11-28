@@ -104,19 +104,23 @@ const cardsImageButtonListener = (card) => {
 //создание карточки
 const createCards = ({name, link}) => {
     const newCard = cardTemplate.cloneNode(true);
-          newCard.querySelector('.card__image').src = link;
-          newCard.querySelector('.card__image').alt = name;
-          newCard.querySelector('.card__title').textContent = name;
+    const cardImage = newCard.querySelector('.card__image');
+    const cardTitle = newCard.querySelector('.card__title');
+          cardImage.src = link;
+          cardImage.alt = name;
+          cardTitle.textContent = name;
     //like
     const cardButtonLike = newCard.querySelector('.card__like-button');
     const cardButtonLikeActive = (event) => {
-      event.target.classList.toggle('card__like-button_active'); }
+      event.target.classList.toggle('card__like-button_active');
+    }
         cardButtonLike.addEventListener('click', cardButtonLikeActive);
     //like-end
     //remove
     const cardButtonRemove = newCard.querySelector('.card__remove-button');
     const cardButtonRemoveClick = () => {
-      cardButtonRemove.closest('.card').remove();}
+      cardButtonRemove.closest('.card').remove();
+    }
         cardButtonRemove.addEventListener('click', cardButtonRemoveClick);
     //remove-end
     cardsImageButtonListener(newCard);
@@ -153,22 +157,12 @@ const popupCardAddSaveForm = (event) => {
 
 //-----------РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 
-//загрузка текста в попап редактирования профиля
-  const loadProfileInfo = () => {
-    popupProfileEditTxtName.value = profileEditTxtName.textContent.trim();
-    popupProfileEditTxtAbout.value = profileEditTxtAbout.textContent.trim();
-}
-
-//передача текста из попапа редактирования профиля
-  const saveProfileInfo = () => {
-    profileEditTxtName.textContent = popupProfileEditTxtName.value;
-    profileEditTxtAbout.textContent = popupProfileEditTxtAbout.value;
-}
-
 //сохранение попапа редактирования профиля
 const popupProfileEditSaveForm = (event) => {
   event.preventDefault();
-  saveProfileInfo();
+  //saveProfileInfo
+    profileEditTxtName.textContent = popupProfileEditTxtName.value;
+    profileEditTxtAbout.textContent = popupProfileEditTxtAbout.value;
   popupClose(popupProfileEdit);
 }
 
@@ -178,7 +172,9 @@ const popupProfileEditSaveForm = (event) => {
 
 //profile-edit события кнопок редактирования профиля
 profileEditButtonOpen.addEventListener('click', () => {
-    loadProfileInfo();
+    //loadProfileInfo
+      popupProfileEditTxtName.value = profileEditTxtName.textContent.trim();
+      popupProfileEditTxtAbout.value = profileEditTxtAbout.textContent.trim();
     popupOpen(popupProfileEdit);
     resetValidation(popupProfileEditForm, validationClasses);
       }
