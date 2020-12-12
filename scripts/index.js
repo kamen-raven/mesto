@@ -26,7 +26,10 @@ const initialCards = [
   }
 ];
 const cardsContainer = document.querySelector('.cards');
-const cardTemplate = document.querySelector('.template-cards').content;
+
+
+
+        const cardTemplate = document.querySelector('.template-cards').content;
 
 //profile
 //profile info content
@@ -100,6 +103,9 @@ const cardsImageButtonListener = (card) => {
               popupOpen(popupImageView);
         });
 }
+
+
+
 
 //создание карточки
 const createCards = ({name, link}) => {
