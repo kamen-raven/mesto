@@ -41,10 +41,10 @@ export default class Card {
         this._cardButtonRemoveHandler();
       });
 //ImageView
-    this._newCard.querySelector('.card__image')
-        .addEventListener('click', () => {
-/*           event.target.closest('.card__image'); */
-      this._popupImageViewOpen(this._name, this._link);
+    this._newCard.querySelector('.card__image-button')
+        .addEventListener('click', (event) => {
+          event.target.closest('.card__image');
+            this._popupImageViewOpen(this._name, this._link);
     });
   }
 
