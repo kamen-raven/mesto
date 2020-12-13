@@ -43,7 +43,7 @@ export default class Card {
 //ImageView
     this._newCard.querySelector('.card__image-button')
         .addEventListener('click', (event) => {
-          event.target.closest('.card__image');
+          event.target.closest('.card__image');  //проверить
             this._popupImageViewOpen(this._name, this._link);
     });
   }

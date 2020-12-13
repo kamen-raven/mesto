@@ -61,74 +61,17 @@ const keyHandlerEsc = (event) => {
 
 
 //------------------КАРТОЧКИ
-
-//подписываемся на кнопки у карточек
-const cardsImageButtonListener = (card) => {
-  const buttonImage = card.querySelector('.card__image-button');
-        buttonImage.addEventListener('click', (event) => {
-          popupImageViewOpen(event);
-        });
-}
-
-
-
-const popupImageViewOpen = (name, link) => {
-  popupImageViewBigImage.src = link;
-  popupImageViewBigImage.alt = name;
-  popupImageViewCaption.textContent = name;
-    popupOpen(popupImageView);
-}
-
-
-
-
-
-//создание карточки
-/* const createCards = ({name, link}) => {
-    const newCard = cardTemplate.cloneNode(true);
-    const cardImage = newCard.querySelector('.card__image');
-    const cardTitle = newCard.querySelector('.card__title');
-          cardImage.src = link;
-          cardImage.alt = name;
-          cardTitle.textContent = name;
-    //like
-    const cardButtonLike = newCard.querySelector('.card__like-button');
-    const cardButtonLikeActive = (event) => {
-      event.target.classList.toggle('card__like-button_active');
-    }
-        cardButtonLike.addEventListener('click', cardButtonLikeActive);
-    //like-end
-    //remove
-    const cardButtonRemove = newCard.querySelector('.card__remove-button');
-    const cardButtonRemoveClick = () => {
-      cardButtonRemove.closest('.card').remove();
-    }
-        cardButtonRemove.addEventListener('click', cardButtonRemoveClick);
-    //remove-end
-    cardsImageButtonListener(newCard);
-  return newCard;
-} */
-
-
-/* const renderCards = () => {
-  initialCards.forEach(({name, link}) => {
-    const newCard = createCards({name, link});
-      cardsContainer.append(newCard);
+const renderCards = (items, cardSelector, popupImageViewOpen) => {
+  items.forEach((items) => {
+    const card = new Card(items, cardSelector, popupImageViewOpen);
+    const newCard = card.createCards();
+  cardsContainer.append(newCard);
   });
 }
 
 
-renderCards(); */
 
-//добавление новой карточки
-/* const addNewCard = () => {
-  const newCardName = popupCardAddName.value;
-  const newCardLink = popupCardAddLink.value;
-  const newCard = renderCards({name: newCardName, link: newCardLink}, cardsContainer);
-    cardsContainer.prepend(newCard);
-} */
-
-
+//создание карточки
 const addNewCard = () => {
   const newCardName = popupCardAddName.value;
   const newCardLink = popupCardAddLink.value;
@@ -137,6 +80,13 @@ const addNewCard = () => {
     cardsContainer.prepend(newCard);
 }
 
+//передаем данные из превью в большую карточку
+const popupImageViewOpen = (name, link) => {
+  popupImageViewBigImage.src = link;
+  popupImageViewBigImage.alt = name;
+  popupImageViewCaption.textContent = name;
+    popupOpen(popupImageView);
+}
 
 //сохранение попапа добавления карточек
 const popupCardAddSaveForm = (event) => {
@@ -220,28 +170,11 @@ popupImageView.addEventListener('mousedown', (event) => {
 
 
 
-/* const renderCards = () => {
-  initialCards.forEach(({name, link}) => {
-    const newCard = createCards({name, link});
-      cardsContainer.append(newCard);
-  });
-}
 
 
-renderCards(); */
+renderCards(initialCards, '.template-cards', popupImageViewOpen);
 
-
-
-const renderCards = (items, cardSelector, popupImageViewOpen) => {
-  items.forEach((items) => {
-    const card = new Card(items, cardSelector, popupImageViewOpen);
-    const newCard = card.createCards();
-  cardsContainer.append(newCard);
-  });
-}
-
-renderCards(initialCards, '.template-cards', popupImageViewOpen)
-
+//--------------ИМПОРТ
 import {initialCards} from './initial-cards.js';
 
 import Card from './Card.js';
