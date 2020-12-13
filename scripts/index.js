@@ -1,35 +1,5 @@
 //cards
-const initialCards = [
-  {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 const cardsContainer = document.querySelector('.cards');
-
-
-
-        const cardTemplate = document.querySelector('.template-cards').content;
 
 //profile
 //profile info content
@@ -96,19 +66,25 @@ const keyHandlerEsc = (event) => {
 const cardsImageButtonListener = (card) => {
   const buttonImage = card.querySelector('.card__image-button');
         buttonImage.addEventListener('click', (event) => {
-          const img = event.target.closest('.card__image');
-            popupImageViewBigImage.src = img.src;
-            popupImageViewBigImage.alt = img.alt;
-            popupImageViewCaption.textContent = img.alt;
-              popupOpen(popupImageView);
+          popupImageViewOpen(event);
         });
 }
 
 
 
+const popupImageViewOpen = (name, link) => {
+  popupImageViewBigImage.src = link;
+  popupImageViewBigImage.alt = name;
+  popupImageViewCaption.textContent = name;
+    popupOpen(popupImageView);
+}
+
+
+
+
 
 //создание карточки
-const createCards = ({name, link}) => {
+/* const createCards = ({name, link}) => {
     const newCard = cardTemplate.cloneNode(true);
     const cardImage = newCard.querySelector('.card__image');
     const cardTitle = newCard.querySelector('.card__title');
@@ -131,10 +107,10 @@ const createCards = ({name, link}) => {
     //remove-end
     cardsImageButtonListener(newCard);
   return newCard;
-}
+} */
 
 
-const renderCards = () => {
+/* const renderCards = () => {
   initialCards.forEach(({name, link}) => {
     const newCard = createCards({name, link});
       cardsContainer.append(newCard);
@@ -142,13 +118,22 @@ const renderCards = () => {
 }
 
 
-renderCards();
+renderCards(); */
 
 //добавление новой карточки
+/* const addNewCard = () => {
+  const newCardName = popupCardAddName.value;
+  const newCardLink = popupCardAddLink.value;
+  const newCard = renderCards({name: newCardName, link: newCardLink}, cardsContainer);
+    cardsContainer.prepend(newCard);
+} */
+
+
 const addNewCard = () => {
   const newCardName = popupCardAddName.value;
   const newCardLink = popupCardAddLink.value;
-  const newCard = createCards({name: newCardName, link: newCardLink});
+  const card = new Card({name: newCardName, link: newCardLink}, '.template-cards', popupImageViewOpen);
+  const newCard = card.createCards();
     cardsContainer.prepend(newCard);
 }
 
@@ -232,3 +217,31 @@ popupImageView.addEventListener('mousedown', (event) => {
   popupCloseByOverlay(event, popupImageView);
       }
 );
+
+
+
+/* const renderCards = () => {
+  initialCards.forEach(({name, link}) => {
+    const newCard = createCards({name, link});
+      cardsContainer.append(newCard);
+  });
+}
+
+
+renderCards(); */
+
+
+
+const renderCards = (items, cardSelector, popupImageViewOpen) => {
+  items.forEach((items) => {
+    const card = new Card(items, cardSelector, popupImageViewOpen);
+    const newCard = card.createCards();
+  cardsContainer.append(newCard);
+  });
+}
+
+renderCards(initialCards, '.template-cards', popupImageViewOpen)
+
+import {initialCards} from './initial-cards.js';
+
+import Card from './Card.js';

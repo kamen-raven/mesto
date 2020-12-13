@@ -1,83 +1,62 @@
-class Card {
-  constructor(data, cardSelector) {
-    this._name = data.name;
-    this._link = data.link;
+export default class Card {
+  constructor(item, cardSelector, popupImageViewOpen) {
+    this._name = item.name;
+    this._link = item.link;
     this._cardSelector = cardSelector;
+    this._popupImageViewOpen = popupImageViewOpen;
   }
 
+//берем template карточки
   _getTemplate() {
     const card = document
       .querySelector(this._cardSelector)
       .content
+      .querySelector('.card')
       .cloneNode(true);
     this._newCard = card;
   }
 
-
-  _cardButtonLikeHandler(event) {
-      event.target.classList.toggle('card__like-button_active');
+//like-переключатель активности класса
+  _cardButtonLikeHandler() {
+    this._newCard.querySelector('.card__like-button')
+        .classList.toggle('card__like-button_active');
   }
 
+  _cardButtonRemoveHandler() {
+    this._newCard.querySelector('.card__remove-button')
+    .closest('.card').remove();
+  }
+
+
+//навешиваем слушатели событий
   _setEventListeners() {
-    const cardButtonLike = this._newCard.querySelector('.card__like-button');
-      cardButtonLike.addEventListener('click', () => {
-        this._cardButtonLikeHandler();
+//like
+    this._newCard.querySelector('.card__like-button')
+        .addEventListener('click', () => {
+          this._cardButtonLikeHandler();
+        });
+//remove
+    this._newCard.querySelector('.card__remove-button')
+      .addEventListener('click', () => {
+        this._cardButtonRemoveHandler();
+      });
+//ImageView
+    this._newCard.querySelector('.card__image')
+        .addEventListener('click', () => {
+/*           event.target.closest('.card__image'); */
+      this._popupImageViewOpen(this._name, this._link);
     });
-
-    const buttonImage = this._newCard.querySelector('.card__image-button');
-        buttonImage.addEventListener('click', (event) => {
-          const img = event.target.closest('.card__image');
-            popupImageViewBigImage.src = img.src;
-            popupImageViewBigImage.alt = img.alt;
-            popupImageViewCaption.textContent = img.alt;
-              popupOpen(popupImageView);
-    });
-
   }
-
-
-
 
 
   createCards() {
     this._getTemplate();
-/*     this._setEventListeners(); */
+      this._setEventListeners();
       const cardImage = this._newCard.querySelector('.card__image');
             cardImage.src = this._link;
-            cardImage.alt = this.name;
+            cardImage.alt = this._name;
       const cardTitle = this._newCard.querySelector('.card__title');
-            cardTitle.textContent = this.name;
+            cardTitle.textContent = this._name;
     return this._newCard
   }
-
-}
-
-/*
-  _setEventListeners() {
-    this._element.querySelector('.card__text').addEventListener('click', () => {
-      this._handleMessageClick();
-    });
-  }
-
-  _handleMessageClick() {
-    this._element.querySelector('.card__text').classList.toggle('card__text_is-active');
-  }
-}
-
-messageList.forEach((item) => {
-  const card = new Card(item, '.card-template_type_default');
-  const cardElement = card.generateCard();
-
-  document.body.append(cardElement);
-}); */
-
-
-const renderElements = () => {
-  initialCards.forEach((item) => {
-  const card = new Card(item, '.template-cards');
-  const cardElement = card.createCards();
-
-  cardsContainer.append(cardElement);
-}
- );
 }
