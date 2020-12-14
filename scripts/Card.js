@@ -22,6 +22,7 @@ export default class Card {
         .classList.toggle('card__like-button_active');
   }
 
+//кнопка удаления карточки
   _cardButtonRemoveHandler() {
     this._newCard.querySelector('.card__remove-button')
     .closest('.card').remove();
@@ -48,7 +49,7 @@ export default class Card {
     });
   }
 
-
+//публичный метод создания карточки
   createCards() {
     this._getTemplate();
       this._setEventListeners();
