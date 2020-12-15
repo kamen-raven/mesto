@@ -50,25 +50,25 @@ const popupImageViewOpen = (name, link) => {
   popupImageViewBigImage.src = link;
   popupImageViewBigImage.alt = name;
   popupImageViewCaption.textContent = name;
-    popupOpen(popupImageView);
-}
+  popupOpen(popupImageView);
+};
 
 //----------------------ФУНКЦИИ ЗАКРЫТИЯ ПОПАПОВ
 
 //функция закрытия по оверлею
-const popupCloseByOverlay = (event, popup) => {
-  if (event.target != event.currentTarget) {
-    return
-  }
-  popupClose(popup);
-}
+const popupCloseByOverlay = (event) => {
+  const clicked = event.target;
+    if (clicked.classList.contains('popup')) {
+      popupClose(clicked);
+    }
+};
 
 //функция закрытия попапов по esc
 const keyHandlerEsc = (event) => {
   if (event.key === 'Escape') {
     popupClose(document.querySelector('.popup_opened'));
   }
-}
+};
 
 //------------------КАРТОЧКИ
 const renderCards = (items, cardSelector, popupImageViewOpen) => {
@@ -77,7 +77,7 @@ const renderCards = (items, cardSelector, popupImageViewOpen) => {
     const newCard = card.createCards();
   cardsContainer.append(newCard);
   });
-}
+};
 
 renderCards(initialCards, '.template-cards', popupImageViewOpen);
 
@@ -88,31 +88,28 @@ const addNewCard = () => {
   const card = new Card({name: newCardName, link: newCardLink}, '.template-cards', popupImageViewOpen);
   const newCard = card.createCards();
     cardsContainer.prepend(newCard);
-}
+};
 
 
 //сохранение попапа добавления карточек
-const popupCardAddSaveForm = (event) => {
-  event.preventDefault();
+const popupCardAddSaveForm = () => {
   addNewCard();
   popupClose(popupCardAdd);
-}
+};
 
 const formValidationCardAdd = new FormValidator(validationClasses, popupCardAddForm);
 formValidationCardAdd.enableValidation();
-
 
 
 //-----------РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 
 //сохранение попапа редактирования профиля
 const popupProfileEditSaveForm = (event) => {
-  event.preventDefault();
   //saveProfileInfo
-    profileEditTxtName.textContent = popupProfileEditTxtName.value;
-    profileEditTxtAbout.textContent = popupProfileEditTxtAbout.value;
+  profileEditTxtName.textContent = popupProfileEditTxtName.value;
+  profileEditTxtAbout.textContent = popupProfileEditTxtAbout.value;
   popupClose(popupProfileEdit);
-}
+};
 
 
 const formValidationProfileEdit = new FormValidator(validationClasses, popupProfileEditForm);
@@ -123,46 +120,41 @@ formValidationProfileEdit.enableValidation();
 //--------------КНОПКИ СЛУШАТЕЛИ СОБЫТИЙ
 //profile-edit события кнопок редактирования профиля
 profileEditButtonOpen.addEventListener('click', () => {
-    //loadProfileInfo
-      popupProfileEditTxtName.value = profileEditTxtName.textContent.trim();
-      popupProfileEditTxtAbout.value = profileEditTxtAbout.textContent.trim();
-    popupOpen(popupProfileEdit);
-    formValidationProfileEdit.resetValidation();
-      }
-);
+//loadProfileInfo
+  popupProfileEditTxtName.value = profileEditTxtName.textContent.trim();
+  popupProfileEditTxtAbout.value = profileEditTxtAbout.textContent.trim();
+//End
+  popupOpen(popupProfileEdit);
+  formValidationProfileEdit.resetValidation();
+});
+
 popupProfileEditButtonClose.addEventListener('click', () => {
-    popupClose(popupProfileEdit);
-      }
-);
+  popupClose(popupProfileEdit);
+});
+
 //profile-edit закрытие по оверлею
 popupProfileEdit.addEventListener('mousedown', (event) => {
-    popupCloseByOverlay(event, popupProfileEdit);
-      }
-);
+  popupCloseByOverlay(event, popupProfileEdit);
+});
 
 popupProfileEditForm.addEventListener('submit', popupProfileEditSaveForm);
 
 
-
-
-
 //card-add события кнопок добавления карточек
 cardAddOpen.addEventListener('click', () => {
-    const form = document.forms.addNewCard;
-      form.reset();
-    popupOpen(popupCardAdd);
-    formValidationCardAdd.resetValidation();
-      }
-);
+  const form = document.forms.addNewCard;
+        form.reset();
+  popupOpen(popupCardAdd);
+  formValidationCardAdd.resetValidation();
+});
+
 popupCardAddButtonClose.addEventListener('click', () => {
-    popupClose(popupCardAdd);
-      }
-);
+  popupClose(popupCardAdd);
+});
 //card-add закрытие по оверлею
 popupCardAdd.addEventListener('mousedown', (event) => {
   popupCloseByOverlay(event, popupCardAdd);
-      }
-);
+});
 
 popupCardAddForm.addEventListener('submit', popupCardAddSaveForm);
 
@@ -170,10 +162,9 @@ popupCardAddForm.addEventListener('submit', popupCardAddSaveForm);
 //закрытие попапа большой карточки
 popupImageViewButtonClose.addEventListener('click',  () => {
   popupClose(popupImageView);
-      }
-);
+});
+
 //закрытие по оверлею большой карточки
 popupImageView.addEventListener('mousedown', (event) => {
   popupCloseByOverlay(event, popupImageView);
-      }
-);
+});

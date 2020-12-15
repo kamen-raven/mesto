@@ -49,29 +49,28 @@ export default class FormValidator {
 
 //слушатели
   _setEventListeners() {
-          this._toggleButtonState(this._submitButton, this._popupForm.checkValidity());
     this._inputList.forEach((inputElement) => {
-            inputElement.addEventListener('input', () => {
-              this._checkInputValidity(inputElement);
-              this._toggleButtonState(this._submitButton, this._popupForm.checkValidity());
-            });
-          });
+      inputElement.addEventListener('input', () => {
+        this._checkInputValidity(inputElement);
+        this._toggleButtonState(this._submitButton, this._popupForm.checkValidity());
+      });
+    });
   }
 
 
 //сброс валидации
   resetValidation() {
     this._inputList.forEach((inputElement) => {
-            this._hideInputError(inputElement);
-            this._toggleButtonState(this._submitButton, this._popupForm.checkValidity());
-          });
+      this._hideInputError(inputElement);
+      this._toggleButtonState(this._submitButton, this._popupForm.checkValidity());
+    });
   }
 
 //запускаем валидацию
   enableValidation() {
-            this._setEventListeners();
-              this._popupForm.addEventListener('submit', (event) => {
-                event.preventDefault();  //не отправляем форму
-              });
+    this._setEventListeners();
+    this._popupForm.addEventListener('submit', (event) => {
+      event.preventDefault();  //не отправляем форму
+    });
   }
-}
+};

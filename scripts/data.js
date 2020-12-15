@@ -27,7 +27,7 @@ export const initialCards = [
 
 
 export const validationClasses = {
-/*   formSelector: '.popup__form', */
+/*formSelector: '.popup__form', */
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__save-button',
   inactiveButtonClass: 'popup__save-button_disabled',

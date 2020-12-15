@@ -19,7 +19,7 @@ export default class Card {
 //like-переключатель активности класса
   _cardButtonLikeHandler() {
     this._newCard.querySelector('.card__like-button')
-        .classList.toggle('card__like-button_active');
+      .classList.toggle('card__like-button_active');
   }
 
 //кнопка удаления карточки
@@ -36,9 +36,9 @@ export default class Card {
   _setEventListeners() {
 //like
     this._newCard.querySelector('.card__like-button')
-        .addEventListener('click', () => {
-          this._cardButtonLikeHandler();
-        });
+      .addEventListener('click', () => {
+        this._cardButtonLikeHandler();
+      });
 //remove
     this._newCard.querySelector('.card__remove-button')
       .addEventListener('click', () => {
@@ -46,15 +46,15 @@ export default class Card {
       });
 //ImageView
     this._newCard.querySelector('.card__image-button')
-        .addEventListener('click', () => {
-            this._popupImageViewOpen(this._name, this._link);
-    });
+      .addEventListener('click', () => {
+        this._popupImageViewOpen(this._name, this._link);
+      });
   }
 
 //публичный метод создания карточки
   createCards() {
     this._newCard = this._getTemplate();
-      this._setEventListeners();
+    this._setEventListeners();
       const cardImage = this._newCard.querySelector('.card__image');
             cardImage.src = this._link;
             cardImage.alt = this._name;
