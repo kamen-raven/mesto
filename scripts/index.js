@@ -1,3 +1,9 @@
+//--------------ИМПОРТ
+import {initialCards, validationClasses} from './data.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
+
 //cards
 const cardsContainer = document.querySelector('.cards');
 
@@ -21,7 +27,6 @@ const popupCardAddButtonClose = popupCardAdd.querySelector('.popup__close-button
 const popupCardAddForm = popupCardAdd.querySelector('.popup__form_card-add');
 const popupCardAddName = popupCardAdd.querySelector('.popup__input_card-add_name');
 const popupCardAddLink = popupCardAdd.querySelector('.popup__input_card-add_link');
-const popupCardAddButtonImage = document.querySelector('.card__image-button');
 //popup image-view
 const popupImageView = document.querySelector('.popup_image-view');
 const popupImageViewButtonClose = popupImageView.querySelector('.popup__close-button');
@@ -172,11 +177,3 @@ popupImageView.addEventListener('mousedown', (event) => {
   popupCloseByOverlay(event, popupImageView);
       }
 );
-
-
-//--------------ИМПОРТ
-import {initialCards, validationClasses} from './data.js';
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-
-

@@ -2,6 +2,8 @@ export default class FormValidator {
   constructor(classes, popupForm) {
     this._classes = classes;
     this._popupForm = popupForm;
+    this._inputList = this._popupForm.querySelectorAll(this._classes.inputSelector);
+    this._submitButton = this._popupForm.querySelector(this._classes.submitButtonSelector);
   }
 
 
@@ -47,13 +49,11 @@ export default class FormValidator {
 
 //слушатели
   _setEventListeners() {
-    const submitButton = this._popupForm.querySelector(this._classes.submitButtonSelector);
-          this._toggleButtonState(submitButton, this._popupForm.checkValidity());
-    const inputList = this._popupForm.querySelectorAll(this._classes.inputSelector);
-          inputList.forEach((inputElement) => {
+          this._toggleButtonState(this._submitButton, this._popupForm.checkValidity());
+    this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
               this._checkInputValidity(inputElement);
-              this._toggleButtonState(submitButton, this._popupForm.checkValidity());
+              this._toggleButtonState(this._submitButton, this._popupForm.checkValidity());
             });
           });
   }
@@ -61,11 +61,9 @@ export default class FormValidator {
 
 //сброс валидации
   resetValidation() {
-    const inputList = this._popupForm.querySelectorAll(this._classes.inputSelector);
-          inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
             this._hideInputError(inputElement);
-              const submitButton = this._popupForm.querySelector(this._classes.submitButtonSelector);
-            this._toggleButtonState(submitButton, this._popupForm.checkValidity());
+            this._toggleButtonState(this._submitButton, this._popupForm.checkValidity());
           });
   }
 
