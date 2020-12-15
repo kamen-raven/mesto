@@ -13,7 +13,7 @@ export default class Card {
       .content
       .querySelector('.card')
       .cloneNode(true);
-    this._newCard = card;
+    return card;
   }
 
 //like-переключатель активности класса
@@ -51,7 +51,7 @@ export default class Card {
 
 //публичный метод создания карточки
   createCards() {
-    this._getTemplate();
+    this._newCard = this._getTemplate();
       this._setEventListeners();
       const cardImage = this._newCard.querySelector('.card__image');
             cardImage.src = this._link;
