@@ -24,8 +24,11 @@ export default class Card {
 
 //кнопка удаления карточки
   _cardButtonRemoveHandler() {
-    this._newCard.querySelector('.card__remove-button')
-    .closest('.card').remove();
+    this._newCard.removeEventListener('click', () => {
+      _setEventListeners();
+    });
+    this._newCard.remove();
+    this._newCard = null;
   }
 
 
@@ -43,8 +46,7 @@ export default class Card {
       });
 //ImageView
     this._newCard.querySelector('.card__image-button')
-        .addEventListener('click', (event) => {
-          event.target.closest('.card__image');  //проверить
+        .addEventListener('click', () => {
             this._popupImageViewOpen(this._name, this._link);
     });
   }
