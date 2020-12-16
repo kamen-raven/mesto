@@ -8,12 +8,11 @@ export default class Card {
 
 //берем template карточки
   _getTemplate() {
-    const card = document
+    return document
       .querySelector(this._cardSelector)
       .content
       .querySelector('.card')
       .cloneNode(true);
-    return card;
   }
 
 //like-переключатель активности класса
@@ -56,10 +55,10 @@ export default class Card {
     this._newCard = this._getTemplate();
     this._setEventListeners();
       const cardImage = this._newCard.querySelector('.card__image');
-            cardImage.src = this._link;
-            cardImage.alt = this._name;
+        cardImage.src = this._link;
+        cardImage.alt = this._name;
       const cardTitle = this._newCard.querySelector('.card__title');
-            cardTitle.textContent = this._name;
+        cardTitle.textContent = this._name;
     return this._newCard
   }
 }
