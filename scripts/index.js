@@ -70,23 +70,30 @@ const keyHandlerEsc = (event) => {
   }
 };
 
+
 //------------------КАРТОЧКИ
+//создание DOM-карточки
+const createCard = (items, cardSelector, popupImageViewOpen) => {
+  const card = new Card(items, cardSelector, popupImageViewOpen);
+  const newCard = card.createCards();
+  return newCard;
+}
+
+//отрисовка первичных карточек
 const renderCards = (items, cardSelector, popupImageViewOpen) => {
-  items.forEach((items) => {
-    const card = new Card(items, cardSelector, popupImageViewOpen);
-    const newCard = card.createCards();
+  items.forEach((item) => {
+    const newCard = createCard(item, cardSelector, popupImageViewOpen);
   cardsContainer.append(newCard);
   });
 };
 
 renderCards(initialCards, '.template-cards', popupImageViewOpen);
 
-//создание карточки
+//добавление новой карточки на страницу
 const addNewCard = () => {
   const newCardName = popupCardAddName.value;
   const newCardLink = popupCardAddLink.value;
-  const card = new Card({name: newCardName, link: newCardLink}, '.template-cards', popupImageViewOpen);
-  const newCard = card.createCards();
+  const newCard = createCard({name: newCardName, link: newCardLink}, '.template-cards', popupImageViewOpen);
     cardsContainer.prepend(newCard);
 };
 
