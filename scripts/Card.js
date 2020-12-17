@@ -3,7 +3,7 @@ export default class Card {
     this._name = item.name;
     this._link = item.link;
     this._cardSelector = cardSelector;
-    this._popupImageViewOpen = popupImageViewOpen;
+    this._handleClickImage = () => popupImageViewOpen(this._name, this._link);
   }
 
 //берем template карточки
@@ -16,38 +16,27 @@ export default class Card {
   }
 
 //like-переключатель активности класса
-  _cardButtonLikeHandler() {
-    this._newCard.querySelector('.card__like-button')
-      .classList.toggle('card__like-button_active');
+  _cardButtonLikeHandler(event) {
+    console.log(event)
+    event.target.classList.toggle('card__like-button_active');
   }
+
 
 //кнопка удаления карточки
   _cardButtonRemoveHandler() {
-    this._newCard.removeEventListener('click', () => {
-      _setEventListeners();
-    });
+    this._newCard.querySelector('.card__like-button').removeEventListener('click', this._cardButtonLikeHandler);
+    this._newCard.querySelector('.card__image-button').removeEventListener('click', this._handleClickImage);
     this._newCard.remove();
     this._newCard = null;
   }
 
-
-//навешиваем слушатели событий
-  _setEventListeners() {
-//like
-    this._newCard.querySelector('.card__like-button')
-      .addEventListener('click', () => {
-        this._cardButtonLikeHandler();
-      });
-//remove
-    this._newCard.querySelector('.card__remove-button')
-      .addEventListener('click', () => {
-        this._cardButtonRemoveHandler();
-      });
-//ImageView
-    this._newCard.querySelector('.card__image-button')
-      .addEventListener('click', () => {
-        this._popupImageViewOpen(this._name, this._link);
-      });
+//навешиваем слушатели событийнн
+_setEventListeners() {
+    this._newCard.querySelector('.card__like-button').addEventListener('click', this._cardButtonLikeHandler);
+    this._newCard.querySelector('.card__image-button').addEventListener('click', this._handleClickImage);
+    this._newCard.querySelector('.card__remove-button').addEventListener('click', () => {
+      this._cardButtonRemoveHandler();
+    });
   }
 
 //публичный метод создания карточки
