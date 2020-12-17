@@ -7,35 +7,35 @@ export default class FormValidator {
   }
 
 
- //показать ошибку
+  //показать ошибку
   _showInputError(inputElement) {
     const errorElement = this._popupForm.querySelector(`#${inputElement.id}-error`);
     const errorMessage = inputElement.validationMessage;
-      inputElement.classList.add(this._classes.inputErrorClass);
-      errorElement.classList.add(this._classes.errorClass);
-      errorElement.textContent = errorMessage;
+    inputElement.classList.add(this._classes.inputErrorClass);
+    errorElement.classList.add(this._classes.errorClass);
+    errorElement.textContent = errorMessage;
   }
 
-//спрятать ошибку
+  //спрятать ошибку
   _hideInputError(inputElement) {
     const errorElement = this._popupForm.querySelector(`#${inputElement.id}-error`);
-      inputElement.classList.remove(this._classes.inputErrorClass);
-      errorElement.classList.remove(this._classes.errorClass);
-      errorElement.textContent = "";
+    inputElement.classList.remove(this._classes.inputErrorClass);
+    errorElement.classList.remove(this._classes.errorClass);
+    errorElement.textContent = "";
   }
 
-//проверка на валидность
+  //проверка на валидность
   _checkInputValidity(inputElement) {
     const notValidInput = !inputElement.validity.valid;
-      if (notValidInput) {
-        this._showInputError(inputElement);
-      } else {
-        this._hideInputError(inputElement);
-      }
+    if (notValidInput) {
+      this._showInputError(inputElement);
+    } else {
+      this._hideInputError(inputElement);
+    }
   }
 
 
-//изменение состояния кнопки
+  //изменение состояния кнопки
   _toggleButtonState(checkValid) {
     if (checkValid) {
       this._submitButton.classList.remove(this._classes.inactiveButtonClass);
@@ -47,7 +47,7 @@ export default class FormValidator {
   }
 
 
-//слушатели
+  //слушатели
   _setEventListeners() {
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
@@ -58,7 +58,7 @@ export default class FormValidator {
   }
 
 
-//сброс валидации
+  //сброс валидации
   resetValidation() {
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
@@ -66,7 +66,7 @@ export default class FormValidator {
     });
   }
 
-//запускаем валидацию
+  //запускаем валидацию
   enableValidation() {
     this._setEventListeners();
     this._popupForm.addEventListener('submit', (event) => {

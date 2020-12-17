@@ -1,5 +1,5 @@
 //--------------ИМПОРТ
-import {initialCards, validationClasses} from './data.js';
+import { initialCards, validationClasses } from './data.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 
@@ -37,7 +37,7 @@ const popupImageViewCaption = popupImageView.querySelector('.popup__figure-capti
 //----------------------ФУНКЦИИ ОТКРЫТИЯ ПОПАПОВ
 const popupOpen = (popup) => {
   popup.classList.add('popup_opened');
-    document.addEventListener('keydown', keyHandlerEsc);
+  document.addEventListener('keydown', keyHandlerEsc);
 };
 
 //передаем данные из превью в большую карточку
@@ -45,21 +45,21 @@ const popupImageViewOpen = (name, link) => {
   popupImageViewBigImage.src = link;
   popupImageViewBigImage.alt = name;
   popupImageViewCaption.textContent = name;
-    popupOpen(popupImageView);
+  popupOpen(popupImageView);
 };
 
 //----------------------ФУНКЦИИ ЗАКРЫТИЯ ПОПАПОВ
 const popupClose = (popup) => {
   popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', keyHandlerEsc);
+  document.removeEventListener('keydown', keyHandlerEsc);
 };
 
 //функция закрытия по оверлею
 const popupCloseByOverlay = (event) => {
   const clicked = event.target;
-    if (clicked.classList.contains('popup')) {
-      popupClose(clicked);
-    }
+  if (clicked.classList.contains('popup')) {
+    popupClose(clicked);
+  }
 };
 
 //функция закрытия попапов по esc
@@ -75,14 +75,14 @@ const keyHandlerEsc = (event) => {
 const createCard = (items, cardSelector) => {
   const card = new Card(items, cardSelector, popupImageViewOpen);
   const newCard = card.createCards();
-    return newCard;
+  return newCard;
 };
 
 //отрисовка первичных карточек
 const renderCards = (items, cardSelector, popupImageViewOpen) => {
   items.forEach((item) => {
     const newCard = createCard(item, cardSelector, popupImageViewOpen);
-      cardsContainer.append(newCard);
+    cardsContainer.append(newCard);
   });
 };
 
@@ -92,8 +92,8 @@ renderCards(initialCards, '.template-cards', popupImageViewOpen);
 const addNewCard = () => {
   const newCardName = popupCardAddName.value;
   const newCardLink = popupCardAddLink.value;
-  const newCard = createCard({name: newCardName, link: newCardLink}, '.template-cards', popupImageViewOpen);
-    cardsContainer.prepend(newCard);
+  const newCard = createCard({ name: newCardName, link: newCardLink }, '.template-cards', popupImageViewOpen);
+  cardsContainer.prepend(newCard);
 };
 
 
@@ -101,7 +101,7 @@ const addNewCard = () => {
 //сохранение попапа добавления карточек
 const popupCardAddSaveForm = () => {
   addNewCard();
-    popupClose(popupCardAdd);
+  popupClose(popupCardAdd);
 };
 
 const formValidationCardAdd = new FormValidator(validationClasses, popupCardAddForm);
@@ -115,7 +115,7 @@ const popupProfileEditSaveForm = () => {
   //saveProfileInfo
   profileEditTxtName.textContent = popupProfileEditTxtName.value;
   profileEditTxtAbout.textContent = popupProfileEditTxtAbout.value;
-    popupClose(popupProfileEdit);
+  popupClose(popupProfileEdit);
 };
 
 
@@ -127,10 +127,10 @@ formValidationProfileEdit.enableValidation();
 //--------------КНОПКИ СЛУШАТЕЛИ СОБЫТИЙ
 //profile-edit события кнопок редактирования профиля
 profileEditButtonOpen.addEventListener('click', () => {
-//loadProfileInfo
+  //loadProfileInfo
   popupProfileEditTxtName.value = profileEditTxtName.textContent.trim();
   popupProfileEditTxtAbout.value = profileEditTxtAbout.textContent.trim();
-//End
+  //End
   popupOpen(popupProfileEdit);
   formValidationProfileEdit.resetValidation();
 });
@@ -150,7 +150,7 @@ popupProfileEditForm.addEventListener('submit', popupProfileEditSaveForm);
 //card-add события кнопок добавления карточек
 cardAddOpen.addEventListener('click', () => {
   const form = document.forms.addNewCard;
-    form.reset();
+  form.reset();
   popupOpen(popupCardAdd);
   formValidationCardAdd.resetValidation();
 });
@@ -167,7 +167,7 @@ popupCardAddForm.addEventListener('submit', popupCardAddSaveForm);
 
 
 //закрытие попапа большой карточки
-popupImageViewButtonClose.addEventListener('click',  () => {
+popupImageViewButtonClose.addEventListener('click', () => {
   popupClose(popupImageView);
 });
 
