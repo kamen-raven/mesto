@@ -1,0 +1,25 @@
+{
+  "name": "yandex.praktikum",
+  "version": "0.0.1",
+  "description": "Проект: Место\r ===\r Проектная работа №7 на [Яндекс.Практикум](https://praktikum.yandex.ru/).\r ---\r Выполнена студентом **Каменевым Вячеславом** на 19-м потоке курса *\"Веб-разработчик\"*.",
+  "main": "index.js",
+  "scripts": {
+    "build": "rd /s /q dist && webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamen-raven/mesto.git"
+  },
+  "author": "Vyacheslav Kamenev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kamen-raven/mesto/issues"
+  },
+  "homepage": "https://github.com/kamen-raven/mesto#readme",
+  "devDependencies": {
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1",
+    "webpack-dev-server": "^3.11.1"
+  }
+}
