@@ -1,7 +1,7 @@
 export default class Card {
-  constructor(item, cardSelector, popupImageViewOpen) {
-    this._name = item.name;
-    this._link = item.link;
+  constructor( { name, link }, cardSelector, popupImageViewOpen) {
+    this._name = name;
+    this._link = link;
     this._cardSelector = cardSelector;
     this._handleClickImage = () => popupImageViewOpen(this._name, this._link);
     this._handleDeleteCard = this._cardButtonRemoveHandler.bind(this);

@@ -125,6 +125,11 @@ formValidationProfileEdit.enableValidation();
 
 
 
+
+
+
+
+
 //--------------КНОПКИ СЛУШАТЕЛИ СОБЫТИЙ
 //profile-edit события кнопок редактирования профиля
 profileEditButtonOpen.addEventListener('click', () => {
