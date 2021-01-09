@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // подклю
 
 module.exports = { // module.exports — это синтаксис экспорта в Node.js
   entry: {
-    main: './src/index.js'
+    main: './src/pages/index.js'
   }, // указали первое место, куда заглянет webpack, — файл index.js в папке src
   output: {
     path: path.resolve(__dirname, 'dist'), // переписали точку выхода, используя утилиту path
@@ -31,10 +31,20 @@ module.exports = { // module.exports — это синтаксис экспор�
         exclude: '/node_modules/'
       },
       // добавили правило для обработки файлов
-      {
         // регулярное выражение, которое ищет все файлы с такими расширениями
-        test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
-        type: 'asset/resource'
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name].[contenthash][ext]',
+        }
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name].[contenthash][ext]',
+        }
       },
       // добавьте правило к CSS-файлам
       {
@@ -52,6 +62,7 @@ module.exports = { // module.exports — это синтаксис экспор�
       }
     ]
   },
+  devtool: "source-map",
   plugins: [  // добавьте массив
     new HtmlWebpackPlugin({
       template: './src/index.html' // путь к файлу index.html

@@ -1,9 +1,9 @@
 //--------------ИМПОРТ
-import '../pages/index.css'; // импорт css-стилей
+import './index.css'; // импорт css-стилей
 
-import { initialCards, validationClasses } from './data.js';
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
+import { initialCards, validationClasses } from '../utils/data.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
 
 //cards
 const cardsContainer = document.querySelector('.cards');
