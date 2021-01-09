@@ -2,73 +2,83 @@
 import './index.css'; // импорт css-стилей
 
 import { initialCards, validationClasses } from '../utils/data.js';
+import {
+  cardsContainer,
+  profileEditTxtName,
+  profileEditTxtAbout,
+  profileEditButtonOpen,
+  cardAddOpen,
+  popupProfileEdit,
+  popupProfileEditButtonClose,
+  popupProfileEditForm,
+  popupProfileEditTxtName,
+  popupProfileEditTxtAbout,
+  popupCardAdd,
+  popupCardAddButtonClose,
+  popupCardAddForm,
+  popupCardAddName,
+  popupCardAddLink,
+  popupImageView,
+  popupImageViewButtonClose,
+  popupImageViewBigImage,
+  popupImageViewCaption
+} from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-
-//cards
-const cardsContainer = document.querySelector('.cards');
-
-//profile
-//profile info content
-const profileEditTxtName = document.querySelector('.profile__title');
-const profileEditTxtAbout = document.querySelector('.profile__subtitle');
-//profile buttons
-const profileEditButtonOpen = document.querySelector('.profile__edit-button');
-const cardAddOpen = document.querySelector('.profile__add-button');
-
-//popup profile-edit
-const popupProfileEdit = document.querySelector('.popup_profile-edit');
-const popupProfileEditButtonClose = popupProfileEdit.querySelector('.popup__close-button');
-const popupProfileEditForm = popupProfileEdit.querySelector('.popup__form_profile-edit');
-const popupProfileEditTxtName = popupProfileEdit.querySelector('.popup__input_profile-edit_name');
-const popupProfileEditTxtAbout = popupProfileEdit.querySelector('.popup__input_profile-edit_about');
-//popup add-card
-const popupCardAdd = document.querySelector('.popup_card-add');
-const popupCardAddButtonClose = popupCardAdd.querySelector('.popup__close-button');
-const popupCardAddForm = popupCardAdd.querySelector('.popup__form_card-add');
-const popupCardAddName = popupCardAdd.querySelector('.popup__input_card-add_name');
-const popupCardAddLink = popupCardAdd.querySelector('.popup__input_card-add_link');
-//popup image-view
-const popupImageView = document.querySelector('.popup_image-view');
-const popupImageViewButtonClose = popupImageView.querySelector('.popup__close-button');
-const popupImageViewBigImage = popupImageView.querySelector('.popup__figure-img');
-const popupImageViewCaption = popupImageView.querySelector('.popup__figure-caption');
+import Popup from '../components/Popup.js';
 
 
 //----------------------ФУНКЦИИ ОТКРЫТИЯ ПОПАПОВ
-const popupOpen = (popup) => {
+
+
+const popupWithImage = new Popup(popupImageView);
+popupWithImage.setEventListeners();
+
+const popupUserInfo = new Popup(popupProfileEdit);
+popupUserInfo.setEventListeners();
+
+const popupWithForm = new Popup(popupCardAdd);
+popupWithForm.setEventListeners();
+
+
+/* const popupOpen = (popup) => {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', keyHandlerEsc);
-};
+}; */
 
 //передаем данные из превью в большую карточку
 const popupImageViewOpen = (name, link) => {
   popupImageViewBigImage.src = link;
   popupImageViewBigImage.alt = name;
   popupImageViewCaption.textContent = name;
-  popupOpen(popupImageView);
+  popupWithImage.open();
 };
 
 //----------------------ФУНКЦИИ ЗАКРЫТИЯ ПОПАПОВ
-const popupClose = (popup) => {
+/* const popupClose = (popup) => {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', keyHandlerEsc);
-};
+}; */
 
 //функция закрытия по оверлею
-const popupCloseByOverlay = (event) => {
+/* const popupCloseByOverlay = (event) => {
   const clicked = event.target;
   if (clicked.classList.contains('popup')) {
     popupClose(clicked);
   }
-};
+}; */
 
 //функция закрытия попапов по esc
-const keyHandlerEsc = (event) => {
+/* const keyHandlerEsc = (event) => {
   if (event.key === 'Escape') {
     popupClose(document.querySelector('.popup_opened'));
   }
-};
+}; */
+
+
+//--------Section
+
+
 
 
 //------------------КАРТОЧКИ
@@ -102,7 +112,7 @@ const addNewCard = () => {
 //сохранение попапа добавления карточек
 const popupCardAddSaveForm = () => {
   addNewCard();
-  popupClose(popupCardAdd);
+  popupWithForm.close();
 };
 
 const formValidationCardAdd = new FormValidator(validationClasses, popupCardAddForm);
@@ -111,12 +121,14 @@ formValidationCardAdd.enableValidation();
 
 //-----------РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 
+
 //сохранение попапа редактирования профиля
 const popupProfileEditSaveForm = () => {
+
   //saveProfileInfo
   profileEditTxtName.textContent = popupProfileEditTxtName.value;
   profileEditTxtAbout.textContent = popupProfileEditTxtAbout.value;
-  popupClose(popupProfileEdit);
+  popupUserInfo.close();
 };
 
 
@@ -137,18 +149,18 @@ profileEditButtonOpen.addEventListener('click', () => {
   popupProfileEditTxtName.value = profileEditTxtName.textContent.trim();
   popupProfileEditTxtAbout.value = profileEditTxtAbout.textContent.trim();
   //End
-  popupOpen(popupProfileEdit);
+  popupUserInfo.open();
   formValidationProfileEdit.resetValidation();
 });
 
-popupProfileEditButtonClose.addEventListener('click', () => {
+/* popupProfileEditButtonClose.addEventListener('click', () => {
   popupClose(popupProfileEdit);
-});
+}); */
 
 //profile-edit закрытие по оверлею
-popupProfileEdit.addEventListener('mousedown', (event) => {
+/* popupProfileEdit.addEventListener('mousedown', (event) => {
   popupCloseByOverlay(event, popupProfileEdit);
-});
+}); */
 
 popupProfileEditForm.addEventListener('submit', popupProfileEditSaveForm);
 
@@ -157,27 +169,27 @@ popupProfileEditForm.addEventListener('submit', popupProfileEditSaveForm);
 cardAddOpen.addEventListener('click', () => {
   const form = document.forms.addNewCard;
   form.reset();
-  popupOpen(popupCardAdd);
+  popupWithForm.open();
   formValidationCardAdd.resetValidation();
 });
 
-popupCardAddButtonClose.addEventListener('click', () => {
+/* popupCardAddButtonClose.addEventListener('click', () => {
   popupClose(popupCardAdd);
-});
+}); */
 //card-add закрытие по оверлею
-popupCardAdd.addEventListener('mousedown', (event) => {
+/* popupCardAdd.addEventListener('mousedown', (event) => {
   popupCloseByOverlay(event, popupCardAdd);
-});
+}); */
 
 popupCardAddForm.addEventListener('submit', popupCardAddSaveForm);
 
 
 //закрытие попапа большой карточки
-popupImageViewButtonClose.addEventListener('click', () => {
+/* popupImageViewButtonClose.addEventListener('click', () => {
   popupClose(popupImageView);
 });
 
 //закрытие по оверлею большой карточки
 popupImageView.addEventListener('mousedown', (event) => {
   popupCloseByOverlay(event, popupImageView);
-});
+}); */
