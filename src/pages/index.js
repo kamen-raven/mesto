@@ -25,36 +25,50 @@ import {
 } from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-import Popup from '../components/Popup.js';
-import PopupWithImage from '../components/PopupWithImage.js';
 
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+
+import Popup from '../components/Popup.js';
 
 //----------------------ФУНКЦИИ ОТКРЫТИЯ ПОПАПОВ
 
 
+
+//создаем popup редактирования профиля
+const popupUserForm = new PopupWithForm(
+  popupProfileEdit, {
+  handleFormSubmit: () => {
+  //saveProfileInfo
+  profileEditTxtName.textContent = popupProfileEditTxtName.value;
+  profileEditTxtAbout.textContent = popupProfileEditTxtAbout.value;
+  //это уйдет в UserInfo
+  popupUserForm.close();
+  }
+});
+popupUserForm.setEventListeners();
+
+
+
+
+//создаем popup добавления карточек
+const popupCardForm = new PopupWithForm(
+  popupCardAdd, {
+  handleFormSubmit: () => {
+    addNewCard();
+    popupCardForm.close();
+  }
+});
+popupCardForm.setEventListeners();
+
+
+//создаем popup просмотра карточек
 const popupWithImage = new PopupWithImage(popupImageView);
 popupWithImage.setEventListeners();
 
-const popupUserInfo = new Popup(popupProfileEdit);
-popupUserInfo.setEventListeners();
-
-const popupWithForm = new Popup(popupCardAdd);
-popupWithForm.setEventListeners();
-
-
-
-
-
-/* const popupOpen = (popup) => {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', keyHandlerEsc);
-}; */
 
 //передаем данные из превью в большую карточку
-const popupImageViewOpen = (name, link) => {
-/*   popupImageViewBigImage.src = link;
-  popupImageViewBigImage.alt = name;
-  popupImageViewCaption.textContent = name; */
+const popupWithImageOpen = (name, link) => {
   popupWithImage.open(name, link);
 };
 
@@ -87,37 +101,70 @@ const popupImageViewOpen = (name, link) => {
 
 //------------------КАРТОЧКИ
 //создание DOM-карточки
-const createCard = (items, cardSelector) => {
-  const card = new Card(items, cardSelector, popupImageViewOpen);
+//рубрика эксперименты...
+/* const createCard = ({ data},  handleClickImage, cardSelector) => {
+  const card = new Card({ data},  handleClickImage, cardSelector);
   const newCard = card.createCards();
   return newCard;
 };
 
 //отрисовка первичных карточек
-const renderCards = (items, cardSelector, popupImageViewOpen) => {
-  items.forEach((item) => {
-    const newCard = createCard(item, cardSelector, popupImageViewOpen);
+const renderCards = ({ data},  handleClickImage, cardSelector) => {
+  data.forEach((item) => {
+    const newCard = createCard({ data: item},  handleClickImage, cardSelector);
     cardsContainer.append(newCard);
   });
 };
 
-renderCards(initialCards, '.template-cards', popupImageViewOpen);
+renderCards({
+  data: initialCards},
+  popupWithImageOpen,
+  '.template-cards');
 
 //добавление новой карточки на страницу
 const addNewCard = () => {
   const newCardName = popupCardAddName.value;
   const newCardLink = popupCardAddLink.value;
-  const newCard = createCard({ name: newCardName, link: newCardLink }, '.template-cards', popupImageViewOpen);
+  const newCard = createCard({ name: newCardName, link: newCardLink }, popupWithImageOpen, '.template-cards');  //вот тут не работает пока
+  cardsContainer.prepend(newCard);
+}; */
+
+
+
+//------------------КАРТОЧКИ
+//создание DOM-карточки
+const createCard = (items, cardSelector) => {
+  const card = new Card(items, cardSelector, popupWithImageOpen);
+  const newCard = card.createCards();
+  return newCard;
+};
+
+//отрисовка первичных карточек
+const renderCards = (items, cardSelector, popupWithImageOpen) => {
+  items.forEach((item) => {
+    const newCard = createCard(item, cardSelector, popupWithImageOpen);
+    cardsContainer.append(newCard);
+  });
+};
+
+renderCards(initialCards, '.template-cards', popupWithImageOpen);
+
+//добавление новой карточки на страницу
+const addNewCard = () => {
+  const newCardName = popupCardAddName.value;
+  const newCardLink = popupCardAddLink.value;
+  const newCard = createCard({ name: newCardName, link: newCardLink }, '.template-cards', popupWithImageOpen);
   cardsContainer.prepend(newCard);
 };
 
 
+
+
+
+
+
 //-------------ПОПАПЫ
-//сохранение попапа добавления карточек
-const popupCardAddSaveForm = () => {
-  addNewCard();
-  popupWithForm.close();
-};
+
 
 const formValidationCardAdd = new FormValidator(validationClasses, popupCardAddForm);
 formValidationCardAdd.enableValidation();
@@ -126,23 +173,15 @@ formValidationCardAdd.enableValidation();
 //-----------РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 
 
-//сохранение попапа редактирования профиля
-const popupProfileEditSaveForm = () => {
-
-  //saveProfileInfo
-  profileEditTxtName.textContent = popupProfileEditTxtName.value;
-  profileEditTxtAbout.textContent = popupProfileEditTxtAbout.value;
-  popupUserInfo.close();
-};
 
 
-const formValidationProfileEdit = new FormValidator(validationClasses, popupProfileEditForm);
-formValidationProfileEdit.enableValidation();
 
 
 
 
 
+const formValidationProfileEdit = new FormValidator(validationClasses, popupProfileEditForm);
+formValidationProfileEdit.enableValidation();
 
 
 
@@ -153,7 +192,7 @@ profileEditButtonOpen.addEventListener('click', () => {
   popupProfileEditTxtName.value = profileEditTxtName.textContent.trim();
   popupProfileEditTxtAbout.value = profileEditTxtAbout.textContent.trim();
   //End
-  popupUserInfo.open();
+  popupUserForm.open();
   formValidationProfileEdit.resetValidation();
 });
 
@@ -166,17 +205,39 @@ profileEditButtonOpen.addEventListener('click', () => {
   popupCloseByOverlay(event, popupProfileEdit);
 }); */
 
-popupProfileEditForm.addEventListener('submit', popupProfileEditSaveForm);
+//сохранение попапа редактирования профиля
+/* const popupProfileEditSaveForm = () => {
 
+  //saveProfileInfo
+  profileEditTxtName.textContent = popupProfileEditTxtName.value;
+  profileEditTxtAbout.textContent = popupProfileEditTxtAbout.value;
+  //это уйдет в UserInfo
 
+  popupUserInfo.close();
+};
+ */
+
+/* popupProfileEdit.addEventListener('submit', popupProfileEditSaveForm);
+
+ */
+//сохранение попапа добавления карточек
+/* const popupCardAddSaveForm = () => {
+  addNewCard();
+  popupWithForm.close();
+};
+ */
 //card-add события кнопок добавления карточек
 cardAddOpen.addEventListener('click', () => {
   const form = document.forms.addNewCard;
   form.reset();
-  popupWithForm.open();
+  popupCardForm.open();
   formValidationCardAdd.resetValidation();
 });
 
+/*
+popupCardAdd.addEventListener('submit', popupCardAddSaveForm);
+
+ */
 /* popupCardAddButtonClose.addEventListener('click', () => {
   popupClose(popupCardAdd);
 }); */
@@ -184,9 +245,6 @@ cardAddOpen.addEventListener('click', () => {
 /* popupCardAdd.addEventListener('mousedown', (event) => {
   popupCloseByOverlay(event, popupCardAdd);
 }); */
-
-popupCardAddForm.addEventListener('submit', popupCardAddSaveForm);
-
 
 //закрытие попапа большой карточки
 /* popupImageViewButtonClose.addEventListener('click', () => {

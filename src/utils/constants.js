@@ -19,6 +19,8 @@ export const popupProfileEditTxtAbout = popupProfileEdit.querySelector('.popup__
 export const popupCardAdd = document.querySelector('.popup_card-add');
 /* export const popupCardAddButtonClose = popupCardAdd.querySelector('.popup__close-button'); */
 export const popupCardAddForm = popupCardAdd.querySelector('.popup__form_card-add');
+
+
 export const popupCardAddName = popupCardAdd.querySelector('.popup__input_card-add_name');
 export const popupCardAddLink = popupCardAdd.querySelector('.popup__input_card-add_link');
 //popup image-view
