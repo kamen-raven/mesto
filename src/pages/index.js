@@ -26,12 +26,13 @@ import {
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 
 
 //----------------------ФУНКЦИИ ОТКРЫТИЯ ПОПАПОВ
 
 
-const popupWithImage = new Popup(popupImageView);
+const popupWithImage = new PopupWithImage(popupImageView);
 popupWithImage.setEventListeners();
 
 const popupUserInfo = new Popup(popupProfileEdit);
@@ -51,10 +52,10 @@ popupWithForm.setEventListeners();
 
 //передаем данные из превью в большую карточку
 const popupImageViewOpen = (name, link) => {
-  popupImageViewBigImage.src = link;
+/*   popupImageViewBigImage.src = link;
   popupImageViewBigImage.alt = name;
-  popupImageViewCaption.textContent = name;
-  popupWithImage.open();
+  popupImageViewCaption.textContent = name; */
+  popupWithImage.open(name, link);
 };
 
 //----------------------ФУНКЦИИ ЗАКРЫТИЯ ПОПАПОВ
