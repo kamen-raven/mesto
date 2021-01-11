@@ -4,15 +4,15 @@ import './index.css'; // импорт css-стилей
 import { initialCards, validationClasses } from '../utils/data.js';
 import {
   cardsContainer,
-  profileEditTxtName,
-  profileEditTxtAbout,
+  profileTxtName,
+  profileTxtAbout,
   profileEditButtonOpen,
   cardAddOpen,
   popupProfileEdit,
   popupProfileEditButtonClose,
-  popupProfileEditForm,
-  popupProfileEditTxtName,
-  popupProfileEditTxtAbout,
+  popupProfileForm,
+  popupProfileTxtName,
+  popupProfileTxtAbout,
   popupCardAdd,
   popupCardAddButtonClose,
   popupCardAddForm,
@@ -29,24 +29,41 @@ import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 
-import Popup from '../components/Popup.js';
+import UserInfo from '../components/UserInfo.js';
 
 //----------------------ФУНКЦИИ ОТКРЫТИЯ ПОПАПОВ
 
 
+const userInfo = new UserInfo(profileTxtName, profileTxtAbout);
 
 //создаем popup редактирования профиля
 const popupUserForm = new PopupWithForm(
   popupProfileEdit, {
   handleFormSubmit: () => {
+    const newProfileName = popupProfileTxtName.value;
+    const newProfileAbout = popupProfileTxtAbout.value;
+    userInfo.setUserInfo(newProfileName, newProfileAbout);
   //saveProfileInfo
-  profileEditTxtName.textContent = popupProfileEditTxtName.value;
-  profileEditTxtAbout.textContent = popupProfileEditTxtAbout.value;
+/*   profileTxtName.textContent = popupProfileTxtName.value;
+  profileTxtAbout.textContent = popupProfileTxtAbout.value; */
   //это уйдет в UserInfo
   popupUserForm.close();
   }
 });
 popupUserForm.setEventListeners();
+
+
+
+//ФУНКЦИЯ ОТКРЫТИЯ ПОПАПА РЕДАКТИРОВАНИЯ ПРОФИЛЯ
+profileEditButtonOpen.addEventListener('click', () => {
+  const userInfoValue = userInfo.getUserInfo();
+  //loadProfileInfo
+  popupProfileTxtName.value = userInfoValue.name;
+  popupProfileTxtAbout.value = userInfoValue.about;
+  //End
+  popupUserForm.open();
+  formValidationProfileEdit.resetValidation();
+});
 
 
 
@@ -180,21 +197,12 @@ formValidationCardAdd.enableValidation();
 
 
 
-const formValidationProfileEdit = new FormValidator(validationClasses, popupProfileEditForm);
+const formValidationProfileEdit = new FormValidator(validationClasses, popupProfileForm);
 formValidationProfileEdit.enableValidation();
 
 
 
 //--------------КНОПКИ СЛУШАТЕЛИ СОБЫТИЙ
-//profile-edit события кнопок редактирования профиля
-profileEditButtonOpen.addEventListener('click', () => {
-  //loadProfileInfo
-  popupProfileEditTxtName.value = profileEditTxtName.textContent.trim();
-  popupProfileEditTxtAbout.value = profileEditTxtAbout.textContent.trim();
-  //End
-  popupUserForm.open();
-  formValidationProfileEdit.resetValidation();
-});
 
 /* popupProfileEditButtonClose.addEventListener('click', () => {
   popupClose(popupProfileEdit);
@@ -209,8 +217,8 @@ profileEditButtonOpen.addEventListener('click', () => {
 /* const popupProfileEditSaveForm = () => {
 
   //saveProfileInfo
-  profileEditTxtName.textContent = popupProfileEditTxtName.value;
-  profileEditTxtAbout.textContent = popupProfileEditTxtAbout.value;
+  profileEditTxtName.textContent = popupProfileTxtName.value;
+  profileEditTxtAbout.textContent = popupProfileTxtAbout.value;
   //это уйдет в UserInfo
 
   popupUserInfo.close();

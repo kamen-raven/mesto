@@ -3,8 +3,8 @@ export const cardsContainer = document.querySelector('.cards');
 
 //profile
 //profile info content
-export const profileEditTxtName = document.querySelector('.profile__title');
-export const profileEditTxtAbout = document.querySelector('.profile__subtitle');
+export const profileTxtName = document.querySelector('.profile__title');
+export const profileTxtAbout = document.querySelector('.profile__subtitle');
 //profile buttons
 export const profileEditButtonOpen = document.querySelector('.profile__edit-button');
 export const cardAddOpen = document.querySelector('.profile__add-button');
@@ -12,9 +12,9 @@ export const cardAddOpen = document.querySelector('.profile__add-button');
 //popup profile-edit
 export const popupProfileEdit = document.querySelector('.popup_profile-edit');
 /* export const popupProfileEditButtonClose = popupProfileEdit.querySelector('.popup__close-button'); */
-export const popupProfileEditForm = popupProfileEdit.querySelector('.popup__form_profile-edit');
-export const popupProfileEditTxtName = popupProfileEdit.querySelector('.popup__input_profile-edit_name');
-export const popupProfileEditTxtAbout = popupProfileEdit.querySelector('.popup__input_profile-edit_about');
+export const popupProfileForm = popupProfileEdit.querySelector('.popup__form_profile-edit');
+export const popupProfileTxtName = popupProfileEdit.querySelector('.popup__input_profile-edit_name');
+export const popupProfileTxtAbout = popupProfileEdit.querySelector('.popup__input_profile-edit_about');
 //popup add-card
 export const popupCardAdd = document.querySelector('.popup_card-add');
 /* export const popupCardAddButtonClose = popupCardAdd.querySelector('.popup__close-button'); */
