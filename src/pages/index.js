@@ -23,13 +23,13 @@ import {
   popupImageViewBigImage,
   popupImageViewCaption
 } from '../utils/constants.js';
+
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-
 import UserInfo from '../components/UserInfo.js';
+import Section from '../components/Section.js';
 
 //----------------------ФУНКЦИИ ОТКРЫТИЯ ПОПАПОВ
 
@@ -43,11 +43,11 @@ const popupUserForm = new PopupWithForm(
     const newProfileName = popupProfileTxtName.value;
     const newProfileAbout = popupProfileTxtAbout.value;
     userInfo.setUserInfo(newProfileName, newProfileAbout);
-  //saveProfileInfo
-/*   profileTxtName.textContent = popupProfileTxtName.value;
-  profileTxtAbout.textContent = popupProfileTxtAbout.value; */
-  //это уйдет в UserInfo
-  popupUserForm.close();
+    //saveProfileInfo
+    /*   profileTxtName.textContent = popupProfileTxtName.value;
+      profileTxtAbout.textContent = popupProfileTxtAbout.value; */
+    //это уйдет в UserInfo
+    popupUserForm.close();
   }
 });
 popupUserForm.setEventListeners();
@@ -68,15 +68,7 @@ profileEditButtonOpen.addEventListener('click', () => {
 
 
 
-//создаем popup добавления карточек
-const popupCardForm = new PopupWithForm(
-  popupCardAdd, {
-  handleFormSubmit: () => {
-    addNewCard();
-    popupCardForm.close();
-  }
-});
-popupCardForm.setEventListeners();
+
 
 
 //создаем popup просмотра карточек
@@ -84,10 +76,7 @@ const popupWithImage = new PopupWithImage(popupImageView);
 popupWithImage.setEventListeners();
 
 
-//передаем данные из превью в большую карточку
-const popupWithImageOpen = (name, link) => {
-  popupWithImage.open(name, link);
-};
+
 
 //----------------------ФУНКЦИИ ЗАКРЫТИЯ ПОПАПОВ
 /* const popupClose = (popup) => {
@@ -150,29 +139,90 @@ const addNewCard = () => {
 
 //------------------КАРТОЧКИ
 //создание DOM-карточки
-const createCard = (items, cardSelector) => {
+/* const createCard = (items, cardSelector) => {
   const card = new Card(items, cardSelector, popupWithImageOpen);
   const newCard = card.createCards();
   return newCard;
 };
+ */
 
-//отрисовка первичных карточек
-const renderCards = (items, cardSelector, popupWithImageOpen) => {
-  items.forEach((item) => {
-    const newCard = createCard(item, cardSelector, popupWithImageOpen);
-    cardsContainer.append(newCard);
-  });
+
+
+
+const createCard = (item) => {
+  const card = new Card({
+    data: item,
+    handleClickImage: () => {
+      popupWithImage.open(item.name, item.link);
+    },
+  },
+    '.template-cards'
+  );
+  cardList.addItem(card.createCards());
 };
 
-renderCards(initialCards, '.template-cards', popupWithImageOpen);
+const cardList = new Section({
+  data: initialCards,
+  renderer: (item) => {
+    createCard(item);
+  }
+},
+  '.cards'
+);
+
+
+cardList.renderItems();
 
 //добавление новой карточки на страницу
 const addNewCard = () => {
   const newCardName = popupCardAddName.value;
   const newCardLink = popupCardAddLink.value;
+/*   const newCard = createCard({ name: newCardName, link: newCardLink }, '.template-cards', popupWithImageOpen);
+  cardsContainer.prepend(newCard); */
+  createCard({ name: newCardName, link: newCardLink });
+};
+
+
+//создаем popup добавления карточек
+const popupCardForm = new PopupWithForm(
+  popupCardAdd, {
+  handleFormSubmit: () => {
+    addNewCard();
+
+    popupCardForm.close();
+  }
+});
+popupCardForm.setEventListeners();
+
+
+
+
+//передаем данные из превью в большую карточку
+/* const popupWithImageOpen = (name, link) => {
+  popupWithImage.open(name, link);
+}; */
+
+/* //отрисовка первичных карточек
+const renderCards = (items, cardSelector, popupWithImageOpen) => {
+  items.forEach((item) => {
+    createCard
+    cardsContainer.append(newCard);
+  });
+};
+ */
+
+
+/*
+renderCards(initialCards, '.template-cards', popupWithImageOpen); */
+
+/* const addNewCard = () => {
+  const newCardName = popupCardAddName.value;
+  const newCardLink = popupCardAddLink.value;
   const newCard = createCard({ name: newCardName, link: newCardLink }, '.template-cards', popupWithImageOpen);
   cardsContainer.prepend(newCard);
 };
+ */
+
 
 
 

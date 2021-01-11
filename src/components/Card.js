@@ -1,12 +1,12 @@
-/* export default class Card {
-  constructor( { name, link },  handleClickImage, cardSelector) {
-    this._name = name;
-    this._link = link;
+export default class Card {
+  constructor( { data, handleClickImage }, cardSelector) {
+    this._name = data.name;
+    this._link = data.link;
     this._cardSelector = cardSelector;
     this._handleClickImage = () => handleClickImage(this._name, this._link);
     this._handleDeleteCard = this._cardButtonRemoveHandler.bind(this);
-  } */
-
+  }
+/*
 export default class Card {
   constructor({ name, link }, cardSelector, popupWithImageOpen) {
     this._name = name;
@@ -15,7 +15,7 @@ export default class Card {
     this._handleClickImage = () => popupWithImageOpen(this._name, this._link);
     this._handleDeleteCard = this._cardButtonRemoveHandler.bind(this);
   }
-
+ */
 
   //берем template карточки
   _getTemplate() {
