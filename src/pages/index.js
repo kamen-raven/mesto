@@ -86,14 +86,15 @@ const createCard = (item) => {
   },
     templateCards //'.template-cards'
   );
-  cardList.addItem(card.createCards());
+  return card.createCards();;
 };
 
 //создаем класс Section
 const cardList = new Section({
   data: initialCards,
   renderer: (item) => {
-    createCard(item);
+    const card = createCard(item);
+    cardList.appendItem(card);
   }
 },
   cardsContainer//'.cards'
@@ -106,7 +107,8 @@ cardList.renderItems();
 const popupCardForm = new PopupWithForm(
   popupCardAdd, {
   handleFormSubmit: () => {
-    addNewCard();
+    const newCard = createNewCard();
+    cardList.prependItem(newCard);
   }
 },
   addNewCardForm
@@ -114,10 +116,10 @@ const popupCardForm = new PopupWithForm(
 popupCardForm.setEventListeners();
 
 //добавление новой карточки на страницу
-const addNewCard = () => {
+const createNewCard = () => {
   const newCardName = popupCardAddName.value;
   const newCardLink = popupCardAddLink.value;
-  createCard({ name: newCardName, link: newCardLink });
+  return createCard({ name: newCardName, link: newCardLink });
 };
 
 //нашли форму  popupCardAdd по ее имени (name) - addNewCardForm
