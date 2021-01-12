@@ -1,16 +1,15 @@
 export default class Card {
-  constructor({ data, handleClickImage }, cardSelector) {
+  constructor({ data, handleClickImage }, templateElement) {
     this._name = data.name;
     this._link = data.link;
-    this._cardSelector = cardSelector;
+    this._templateElement = templateElement;
     this._handleClickImage = () => handleClickImage(this._name, this._link);
     this._handleDeleteCard = this._cardButtonRemoveHandler.bind(this);
   }
 
   //берем template карточки
   _getTemplate() {
-    return document
-      .querySelector(this._cardSelector)
+    return this._templateElement
       .content
       .querySelector('.card')
       .cloneNode(true);

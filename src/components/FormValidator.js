@@ -1,25 +1,25 @@
 export default class FormValidator {
-  constructor(classes, popupForm) {
-    this._classes = classes;
+  constructor(validationSettings, popupForm) {
+    this._validvalidationSettings = validationSettings;
     this._popupForm = popupForm;
-    this._inputList = this._popupForm.querySelectorAll(this._classes.inputSelector);
-    this._submitButton = this._popupForm.querySelector(this._classes.submitButtonSelector);
+    this._inputList = this._popupForm.querySelectorAll(this._validvalidationSettings.inputSelector);
+    this._submitButton = this._popupForm.querySelector(this._validvalidationSettings.submitButtonSelector);
   }
 
   //показать ошибку
   _showInputError(inputElement) {
     const errorElement = this._popupForm.querySelector(`#${inputElement.id}-error`);
     const errorMessage = inputElement.validationMessage;
-    inputElement.classList.add(this._classes.inputErrorClass);
-    errorElement.classList.add(this._classes.errorClass);
+    inputElement.classList.add(this._validvalidationSettings.inputErrorClass);
+    errorElement.classList.add(this._validvalidationSettings.errorClass);
     errorElement.textContent = errorMessage;
   }
 
   //спрятать ошибку
   _hideInputError(inputElement) {
     const errorElement = this._popupForm.querySelector(`#${inputElement.id}-error`);
-    inputElement.classList.remove(this._classes.inputErrorClass);
-    errorElement.classList.remove(this._classes.errorClass);
+    inputElement.classList.remove(this._validvalidationSettings.inputErrorClass);
+    errorElement.classList.remove(this._validvalidationSettings.errorClass);
     errorElement.textContent = "";
   }
 
@@ -36,10 +36,10 @@ export default class FormValidator {
   //изменение состояния кнопки
   _toggleButtonState(checkValid) {
     if (checkValid) {
-      this._submitButton.classList.remove(this._classes.inactiveButtonClass);
+      this._submitButton.classList.remove(this._validvalidationSettings.inactiveButtonClass);
       this._submitButton.removeAttribute('disabled');
     } else {
-      this._submitButton.classList.add(this._classes.inactiveButtonClass);
+      this._submitButton.classList.add(this._validvalidationSettings.inactiveButtonClass);
       this._submitButton.setAttribute('disabled', true);
     }
   }

@@ -3,6 +3,9 @@ import './index.css'; // импорт css-стилей
 
 import { initialCards, validationClasses } from '../utils/data.js';
 import {
+  templateCards,
+  cardsContainer,
+  profileInfoForm,
   profileTxtName,
   profileTxtAbout,
   profileEditButtonOpen,
@@ -11,6 +14,7 @@ import {
   popupProfileForm,
   popupProfileTxtName,
   popupProfileTxtAbout,
+  addNewCardForm,
   popupCardAdd,
   popupCardAddForm,
   popupCardAddName,
@@ -27,9 +31,11 @@ import Section from '../components/Section.js';
 
 
 //--------------ИНИЦИАЛИЗАЦИЯ КЛАССОВ ВАЛИДАЦИИ ФОРМ
+//валидация формы добавления карточки
 const formValidationCardAdd = new FormValidator(validationClasses, popupCardAddForm);
 formValidationCardAdd.enableValidation();
 
+//валидация формы профиля
 const formValidationProfileEdit = new FormValidator(validationClasses, popupProfileForm);
 formValidationProfileEdit.enableValidation();
 
@@ -45,9 +51,11 @@ const popupUserForm = new PopupWithForm(
     const newProfileName = popupProfileTxtName.value;
     const newProfileAbout = popupProfileTxtAbout.value;
     userInfo.setUserInfo(newProfileName, newProfileAbout);
-    popupUserForm.close();
+    popupUserForm.closeWithReset();
   }
-});
+},
+  profileInfoForm
+);
 popupUserForm.setEventListeners();
 
 
@@ -76,7 +84,7 @@ const createCard = (item) => {
       popupWithImage.open(item.name, item.link);
     },
   },
-    '.template-cards'
+    templateCards //'.template-cards'
   );
   cardList.addItem(card.createCards());
 };
@@ -88,7 +96,7 @@ const cardList = new Section({
     createCard(item);
   }
 },
-  '.cards'
+  cardsContainer//'.cards'
 );
 
 cardList.renderItems();
@@ -99,9 +107,10 @@ const popupCardForm = new PopupWithForm(
   popupCardAdd, {
   handleFormSubmit: () => {
     addNewCard();
-    popupCardForm.close();
   }
-});
+},
+  addNewCardForm
+);
 popupCardForm.setEventListeners();
 
 //добавление новой карточки на страницу
@@ -111,10 +120,13 @@ const addNewCard = () => {
   createCard({ name: newCardName, link: newCardLink });
 };
 
+//нашли форму  popupCardAdd по ее имени (name) - addNewCardForm
+/* const form = document.forms.addNewCardForm; */
+
 //card-add события кнопок добавления карточек
 cardAddOpen.addEventListener('click', () => {
-  const form = document.forms.addNewCard;
-  form.reset();
+  /*   form.reset(); */
+  popupCardForm.closeWithReset();
   popupCardForm.open();
   formValidationCardAdd.resetValidation();
 });
