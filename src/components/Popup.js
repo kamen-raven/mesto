@@ -5,16 +5,19 @@ export default class Popup {
     this._closeButtonSelector = this._popupSelector.querySelector('.popup__close-button');
   }
 
+  //открытие
   open() {
     this._popupSelector.classList.add('popup_opened');
     document.addEventListener('keydown', this._keyHandlerEsc);
   }
 
+  //закрытие
   close() {
     this._popupSelector.classList.remove('popup_opened');
     document.removeEventListener('keydown', this._keyHandlerEsc);
   }
 
+  //навешиваем слушатели
   setEventListeners() {
     this._closeButtonSelector.addEventListener('click', () => {
       this.close();

@@ -6,7 +6,6 @@ export default class FormValidator {
     this._submitButton = this._popupForm.querySelector(this._classes.submitButtonSelector);
   }
 
-
   //показать ошибку
   _showInputError(inputElement) {
     const errorElement = this._popupForm.querySelector(`#${inputElement.id}-error`);
@@ -34,7 +33,6 @@ export default class FormValidator {
     }
   }
 
-
   //изменение состояния кнопки
   _toggleButtonState(checkValid) {
     if (checkValid) {
@@ -46,7 +44,6 @@ export default class FormValidator {
     }
   }
 
-
   //слушатели
   _setEventListeners() {
     this._inputList.forEach((inputElement) => {
@@ -56,7 +53,6 @@ export default class FormValidator {
       });
     });
   }
-
 
   //сброс валидации
   resetValidation() {
