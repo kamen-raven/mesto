@@ -78,6 +78,9 @@ const popupUserForm = new PopupWithForm(
       userInfo.setUserInfo(newProfileName, newProfileAbout);
       popupUserForm.closeWithReset();
     })
+    .catch((error) => {
+      console.log(`Хьюстон, у нас проблема при редактировании инфомрации профиля: ${error}`)
+    })
   }
 },
   profileInfoForm
@@ -130,9 +133,12 @@ const cardList = new Section({
 //создаем popup добавления карточек
 const popupCardForm = new PopupWithForm(
   popupCardAdd, {
-  handleFormSubmit: () => {
-    const newCard = createNewCard();
-    cardList.prependItem(newCard);
+  handleFormSubmit: (data) => {
+    api.postNewCard(data)
+    .then((data) => {
+      const newCard = createNewCard(data);
+      cardList.prependItem(newCard);
+    })
   }
 },
   addNewCardForm
@@ -140,9 +146,9 @@ const popupCardForm = new PopupWithForm(
 popupCardForm.setEventListeners();
 
 //добавление новой карточки на страницу
-const createNewCard = () => {
-  const newCardName = popupCardAddName.value;
-  const newCardLink = popupCardAddLink.value;
+const createNewCard = (data) => {
+  const newCardName = data.name;
+  const newCardLink = data.link;
   return createCard({ name: newCardName, link: newCardLink });
 };
 
