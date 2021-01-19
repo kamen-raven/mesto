@@ -1,7 +1,7 @@
 //--------------ИМПОРТ
 import './index.css'; // импорт css-стилей
 
-import { initialCards, validationClasses } from '../utils/data.js';
+import { validationClasses } from '../utils/data.js';
 import {
   templateCards,
   cardsContainer,
@@ -28,7 +28,30 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
+import Api from '../components/Api.js';
 
+
+//-----ИНИЦИАЛИЗАЦИЯ КЛАССА API
+const api = new Api({
+  address: 'https://mesto.nomoreparties.co',
+  token: '39cff778-54be-45db-8f91-d96bf9b92859',
+  cohortId: 'cohort-19'
+});
+
+//первоначальная загрузка информации с сервера
+Promise.all([
+  api.getUserData(),
+  api.getInitialCards()
+])
+  .then((arrayValue) => {
+    const userValue = arrayValue[0];
+    const InitialCards = arrayValue[1];
+    userInfo.setUserInfo(userValue.name, userValue.about);
+    cardList.renderItems(InitialCards);
+  })
+  .catch((error) => {
+    console.log(`Хьюстон, у нас проблема: ${error}`)
+  });
 
 //--------------ИНИЦИАЛИЗАЦИЯ КЛАССОВ ВАЛИДАЦИИ ФОРМ
 //валидация формы добавления карточки
@@ -91,7 +114,6 @@ const createCard = (item) => {
 
 //создаем класс Section
 const cardList = new Section({
-  data: initialCards,
   renderer: (item) => {
     const card = createCard(item);
     cardList.appendItem(card);
@@ -100,7 +122,6 @@ const cardList = new Section({
   cardsContainer//'.cards'
 );
 
-cardList.renderItems();
 
 
 //создаем popup добавления карточек
@@ -122,12 +143,9 @@ const createNewCard = () => {
   return createCard({ name: newCardName, link: newCardLink });
 };
 
-//нашли форму  popupCardAdd по ее имени (name) - addNewCardForm
-/* const form = document.forms.addNewCardForm; */
 
 //card-add события кнопок добавления карточек
 cardAddOpen.addEventListener('click', () => {
-  /*   form.reset(); */
   popupCardForm.closeWithReset();
   popupCardForm.open();
   formValidationCardAdd.resetValidation();

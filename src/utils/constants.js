@@ -8,6 +8,7 @@ export const cardsContainer = document.querySelector('.cards');
 //profile info content
 //нашли форму  profileInfo по ее имени (name) - profileInfo
 export const profileInfoForm = document.forms.profileInfo;
+
 export const profileTxtName = document.querySelector('.profile__title');
 export const profileTxtAbout = document.querySelector('.profile__subtitle');
 //profile buttons
