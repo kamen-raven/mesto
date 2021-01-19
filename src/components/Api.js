@@ -9,20 +9,39 @@ export default class Api {
   //запрос данных пользователя
   getUserData() {
     return fetch(`${this._address}/v1/${this._cohortId}/users/me`, {
+      method: 'GET',
       headers: {
         authorization: this._token
       }
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Хьюстон, у нас проблема: ${res.status}`)
-  })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res.status)
+      })
   }
 
   //запрос на обновление данных пользователя
-
+  patchUserInfo(data) {
+    return fetch(`${this._address}/v1/${this._cohortId}/users/me`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: data.name,
+        about: data.about
+      })
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res.status)
+      })
+  }
   //запрос на обновление аватара пользователя
 
 
@@ -30,16 +49,17 @@ export default class Api {
   //запрос массива карточек
   getInitialCards() {
     return fetch(`${this._address}/v1/${this._cohortId}/cards `, {
+      method: 'GET',
       headers: {
         authorization: this._token
       }
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status)
-  })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res.status)
+      })
   }
 
   //запрос добавления новой карточки

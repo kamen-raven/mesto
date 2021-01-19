@@ -50,7 +50,7 @@ Promise.all([
     cardList.renderItems(InitialCards);
   })
   .catch((error) => {
-    console.log(`Хьюстон, у нас проблема: ${error}`)
+    console.log(`Хьюстон, у нас проблема при загрузке первоначальной информации: ${error}`)
   });
 
 //--------------ИНИЦИАЛИЗАЦИЯ КЛАССОВ ВАЛИДАЦИИ ФОРМ
@@ -70,11 +70,14 @@ const userInfo = new UserInfo(profileTxtName, profileTxtAbout);
 //создаем popup редактирования профиля
 const popupUserForm = new PopupWithForm(
   popupProfileEdit, {
-  handleFormSubmit: () => {
-    const newProfileName = popupProfileTxtName.value;
-    const newProfileAbout = popupProfileTxtAbout.value;
-    userInfo.setUserInfo(newProfileName, newProfileAbout);
-    popupUserForm.closeWithReset();
+  handleFormSubmit: (data) => {
+    api.patchUserInfo(data)
+    .then((data) => {
+      const newProfileName = data.name;
+      const newProfileAbout = data.about;
+      userInfo.setUserInfo(newProfileName, newProfileAbout);
+      popupUserForm.closeWithReset();
+    })
   }
 },
   profileInfoForm
