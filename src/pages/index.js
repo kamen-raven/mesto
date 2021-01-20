@@ -115,7 +115,7 @@ const createCard = (item) => {
   },
     templateCards //'.template-cards'
   );
-  return card.createCards();;
+  return card.createCards();
 };
 
 //создаем класс Section
@@ -127,7 +127,6 @@ const cardList = new Section({
 },
   cardsContainer//'.cards'
 );
-
 
 
 //создаем popup добавления карточек
