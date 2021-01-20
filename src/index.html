@@ -27,14 +27,12 @@
         </button>
         <div class="profile__info">
             <h1 class="profile__title">
-<!--Жак-Ив Кусто -->
             </h1>
             <button class="profile__edit-button"
                     type="button"
                     aria-label="редактировать профиль">
             </button>
             <p class="profile__subtitle">
-<!--Исследователь океана -->
             </p>
         </div>
         <button class="profile__add-button"
@@ -91,6 +89,40 @@
                       required>
               <span class="popup__input-error"
                     id="input-profile-about-error">
+              </span>
+            </fieldset>
+            <button class="popup__save-button"
+                    type="submit">
+              Сохранить
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+<!--popupAvatarEdit-->
+    <div class="popup popup_avatar-edit">
+      <div class="popup__container popup__container_create_form">
+        <button class="popup__close-button"
+                type="button">
+        </button>
+        <div class="popup__content">
+          <h2 class="popup__title">
+            Обновить аватар
+          </h2>
+          <form class="popup__form popup__form_avatar-edit"
+                name="profileAvatarEdit"
+                novalidate>
+            <fieldset class="popup__fieldset">
+              <input class="popup__input popup__input_avatar-edit_link"
+                      id="input-avatar-url"
+                      type="url"
+                      name="avatar"
+                      placeholder="Ссылка на картинку"
+                      value=""
+                      autocomplete="off"
+                      required>
+              <span class="popup__input-error"
+                    id="input-avatar-url-error">
               </span>
             </fieldset>
             <button class="popup__save-button"
@@ -158,12 +190,14 @@
           <h2 class="popup__title">
             Вы уверены?
           </h2>
-          <div class='popup__button-container'>
+          <form class="popup__form popup__form_confirm-delete"
+                name="confirmDelete"
+                novalidate>
             <button class="popup__save-button popup__save-button_confirm"
                     type="submit">
               Да
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>

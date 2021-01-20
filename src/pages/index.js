@@ -14,12 +14,17 @@ import {
   popupProfileForm,
   popupProfileTxtName,
   popupProfileTxtAbout,
+  profileAvatarEdit,
+  avatarEdit,
+  avatarEditForm,
+  avatarEditLink,
   addNewCardForm,
   popupCardAdd,
   popupCardAddForm,
+  popupImageView,
   popupCardAddName,
   popupCardAddLink,
-  popupImageView,
+  popupConfirmDelete
 } from '../utils/constants.js';
 
 import Card from '../components/Card.js';
