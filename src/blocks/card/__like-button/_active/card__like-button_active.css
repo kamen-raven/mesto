@@ -1,3 +1,6 @@
 .card__like-button_active {
   background-image: url(../../../../images/like_button_active.svg);
+/*   background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center; */
 }
