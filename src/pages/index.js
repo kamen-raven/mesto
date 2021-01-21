@@ -65,6 +65,7 @@ const userInfo = new UserInfo(profileTxtName, profileTxtAbout);
 const popupUserForm = new PopupWithForm(
   popupProfileEdit, {
   handleFormSubmit: (data) => {
+    popupUserForm.setLoading(true);
     api.patchUserInfo(data)
       .then((data) => {
         const newProfileName = data.name;
@@ -74,6 +75,9 @@ const popupUserForm = new PopupWithForm(
       })
       .catch((error) => {
         console.log(`Хьюстон, у нас проблема при редактировании инфомрации профиля: ${error}`)
+      })
+      .finally(() => {
+        popupUserForm.setLoading(false);
       })
   }
 },
@@ -165,13 +169,18 @@ const cardList = new Section({
 const popupCardForm = new PopupWithForm(
   popupCardAdd, {
   handleFormSubmit: (data) => {
+    popupUserForm.setLoading(true);
     api.postNewCard(data)
       .then((data) => {
-        const newCard = createNewCard(data);
+/*         const newCard = createNewCard(data); */
+        const newCard = createCard(data, myUserId);
         cardList.prependItem(newCard);
       })
       .catch((error) => {
         console.log(`Хьюстон, у нас проблема при добавлении новой карточки: ${error}`)
+      })
+      .finally(() => {
+        popupUserForm.setLoading(false);
       })
   }
 },
@@ -180,12 +189,12 @@ const popupCardForm = new PopupWithForm(
 popupCardForm.setEventListeners();
 
 //добавление новой карточки на страницу
-const createNewCard = (data) => {
+/* const createNewCard = (data) => {
   const newCardName = data.name;
   const newCardLink = data.link;
   const userId = data.owner._id;
-  return createCard({ name: newCardName, link: newCardLink }, userId);
-};
+  return createCard(data, myUserId);
+}; */
 
 
 //card-add события кнопок добавления карточек
