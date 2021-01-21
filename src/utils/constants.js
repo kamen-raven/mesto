@@ -11,6 +11,7 @@ export const profileInfoForm = document.forms.profileInfo;
 
 export const profileTxtName = document.querySelector('.profile__title');
 export const profileTxtAbout = document.querySelector('.profile__subtitle');
+export const profileAvatar = document.querySelector('.profile__avatar');
 //profile buttons
 export const profileEditButtonOpen = document.querySelector('.profile__edit-button');
 export const cardAddOpen = document.querySelector('.profile__add-button');

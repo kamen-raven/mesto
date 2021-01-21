@@ -11,6 +11,11 @@ export default class UserInfo {
     }
   }
 
+  getUserId(id){
+    console.log(id);
+    return id;
+  }
+
   setUserInfo(newProfileName, newProfileAbout) {
     this._name.textContent = newProfileName;
     this._about.textContent = newProfileAbout;

@@ -8,6 +8,7 @@ import {
   profileInfoForm,
   profileTxtName,
   profileTxtAbout,
+  profileAvatar,
   profileEditButtonOpen,
   cardAddOpen,
   popupProfileEdit,
@@ -35,6 +36,7 @@ import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
 import Api from '../components/Api.js';
 
+let myUserId = "";
 
 //-----ИНИЦИАЛИЗАЦИЯ КЛАССА API
 const api = new Api({
@@ -43,20 +45,6 @@ const api = new Api({
   cohortId: 'cohort-19'
 });
 
-//первоначальная загрузка информации с сервера
-Promise.all([
-  api.getUserData(),
-  api.getInitialCards()
-])
-  .then((arrayValue) => {
-    const userValue = arrayValue[0];
-    const InitialCards = arrayValue[1];
-    userInfo.setUserInfo(userValue.name, userValue.about);
-    cardList.renderItems(InitialCards);
-  })
-  .catch((error) => {
-    console.log(`Хьюстон, у нас проблема при загрузке первоначальной информации: ${error}`)
-  });
 
 //--------------ИНИЦИАЛИЗАЦИЯ КЛАССОВ ВАЛИДАЦИИ ФОРМ
 //валидация формы добавления карточки
@@ -77,15 +65,15 @@ const popupUserForm = new PopupWithForm(
   popupProfileEdit, {
   handleFormSubmit: (data) => {
     api.patchUserInfo(data)
-    .then((data) => {
-      const newProfileName = data.name;
-      const newProfileAbout = data.about;
-      userInfo.setUserInfo(newProfileName, newProfileAbout);
-      popupUserForm.closeWithReset();
-    })
-    .catch((error) => {
-      console.log(`Хьюстон, у нас проблема при редактировании инфомрации профиля: ${error}`)
-    })
+      .then((data) => {
+        const newProfileName = data.name;
+        const newProfileAbout = data.about;
+        userInfo.setUserInfo(newProfileName, newProfileAbout);
+        popupUserForm.closeWithReset();
+      })
+      .catch((error) => {
+        console.log(`Хьюстон, у нас проблема при редактировании инфомрации профиля: ${error}`)
+      })
   }
 },
   profileInfoForm
@@ -111,13 +99,34 @@ popupWithImage.setEventListeners();
 
 
 //создаем функцию инициализации карточки
-const createCard = (item) => {
-  const card = new Card({
-    data: item,
-    handleClickImage: () => {
-      popupWithImage.open(item.name, item.link);
+const createCard = (item, curretUserId) => {
+  const card = new Card(
+    item,
+    curretUserId,
+    {
+      handleClickImage: () => {
+        popupWithImage.open(item.name, item.link);
+      },
+      handleClickLike: (cardId, isLiked) => {
+        if (isLiked) {
+          api.deleteLike(cardId)
+            .then((data) => {
+              card.setLikes(data.likes)
+            })
+            .catch((error) => {
+              console.lod(`Хьюстон, у нас проблема при лайке карточки: ${error}`)
+            })
+        } else {
+          api.putLike(cardId)
+            .then((data) => {
+              card.setLikes(data.likes)
+            })
+            .catch((error) => {
+              console.log(`Хьюстон, у нас проблема при лайке карточки: ${error}`)
+            })
+        }
+      }
     },
-  },
     templateCards //'.template-cards'
   );
   return card.createCards();
@@ -126,7 +135,7 @@ const createCard = (item) => {
 //создаем класс Section
 const cardList = new Section({
   renderer: (item) => {
-    const card = createCard(item);
+    const card = createCard(item, myUserId);
     cardList.appendItem(card);
   }
 },
@@ -139,10 +148,13 @@ const popupCardForm = new PopupWithForm(
   popupCardAdd, {
   handleFormSubmit: (data) => {
     api.postNewCard(data)
-    .then((data) => {
-      const newCard = createNewCard(data);
-      cardList.prependItem(newCard);
-    })
+      .then((data) => {
+        const newCard = createNewCard(data, data.owner._id);
+        cardList.prependItem(newCard);
+      })
+      .catch((error) => {
+        console.log(`Хьюстон, у нас проблема при добавлении новой карточки: ${error}`)
+      })
   }
 },
   addNewCardForm
@@ -150,10 +162,10 @@ const popupCardForm = new PopupWithForm(
 popupCardForm.setEventListeners();
 
 //добавление новой карточки на страницу
-const createNewCard = (data) => {
+const createNewCard = (data, curretUserId) => {
   const newCardName = data.name;
   const newCardLink = data.link;
-  return createCard({ name: newCardName, link: newCardLink });
+  return createCard({ name: newCardName, link: newCardLink }, curretUserId);
 };
 
 
@@ -166,4 +178,19 @@ cardAddOpen.addEventListener('click', () => {
 
 
 
-
+//первоначальная загрузка информации с сервера
+Promise.all([
+  api.getUserData(),
+  api.getInitialCards()
+])
+  .then((arrayValue) => {
+    const userValue = arrayValue[0];
+    const InitialCards = arrayValue[1];
+    myUserId = userValue._id;
+    profileAvatar.src = userValue.avatar;
+    userInfo.setUserInfo(userValue.name, userValue.about);
+    cardList.renderItems(InitialCards);
+  })
+  .catch((error) => {
+    console.log(`Хьюстон, у нас проблема при загрузке первоначальной информации: ${error}`)
+  });
