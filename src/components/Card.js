@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, curretUserId, { handleClickImage, handleClickLike }, templateElement) {
+  constructor(data, curretUserId, { handleClickImage, handleClickLike, handleClickDelete }, templateElement) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -9,7 +9,8 @@ export default class Card {
     this._templateElement = templateElement;
     this._handleClickImage = () => handleClickImage(this._name, this._link);
     this._handleClickLike = () => handleClickLike(this._cardId, this._isLiked());
-    this._handleDeleteCard = this._cardButtonRemoveHandler.bind(this);
+    this._handleClickDelete = () => handleClickDelete(this._cardId);
+/*     this._handleDeleteCard = this._cardButtonRemoveHandler.bind(this); */
   }
 
   //берем template карточки
@@ -26,7 +27,8 @@ export default class Card {
   } */
 
   //кнопка удаления карточки
-  _cardButtonRemoveHandler() {
+/*   _cardButtonRemoveHandler() */
+  removeCard() {
     this._newCard.remove();
     this._newCard = null;
   }
@@ -42,7 +44,7 @@ export default class Card {
    /*  this._newCard.querySelector('.card__like-button').addEventListener('click', this._cardButtonLikeHandler); */
     this._newCard.querySelector('.card__like-button').addEventListener('click', this._handleClickLike);
     this._newCard.querySelector('.card__image-button').addEventListener('click', this._handleClickImage);
-    this._newCard.querySelector('.card__remove-button').addEventListener('click', this._handleDeleteCard);
+    this._newCard.querySelector('.card__remove-button').addEventListener('click', this._handleClickDelete);
   }
 
 

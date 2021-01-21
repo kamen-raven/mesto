@@ -32,6 +32,7 @@ import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupConfirm from '../components/PopupConfirm.js';
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
 import Api from '../components/Api.js';
@@ -97,6 +98,10 @@ profileEditButtonOpen.addEventListener('click', () => {
 const popupWithImage = new PopupWithImage(popupImageView);
 popupWithImage.setEventListeners();
 
+//создаем popup подтверждения
+const popupDelete = new PopupConfirm(popupConfirmDelete);
+popupDelete.setEventListeners();
+
 
 //создаем функцию инициализации карточки
 const createCard = (item, curretUserId) => {
@@ -114,7 +119,7 @@ const createCard = (item, curretUserId) => {
               card.setLikes(data.likes)
             })
             .catch((error) => {
-              console.lod(`Хьюстон, у нас проблема при лайке карточки: ${error}`)
+              console.lod(`Хьюстон, у нас проблема при снятии лайка с карточки: ${error}`)
             })
         } else {
           api.putLike(cardId)
@@ -125,6 +130,19 @@ const createCard = (item, curretUserId) => {
               console.log(`Хьюстон, у нас проблема при лайке карточки: ${error}`)
             })
         }
+      },
+      handleClickDelete: (cardId) => {
+        popupDelete.setSubmitAction(() => {
+          api.deleteCard(cardId)
+          .then(() => {
+            card.removeCard();
+            popupDelete.close();
+          })
+          .catch((error) => {
+            console.log(`Хьюстон, у нас проблема при удалении карточки: ${error}`)
+          })
+        }),
+        popupDelete.open();
       }
     },
     templateCards //'.template-cards'
@@ -149,7 +167,7 @@ const popupCardForm = new PopupWithForm(
   handleFormSubmit: (data) => {
     api.postNewCard(data)
       .then((data) => {
-        const newCard = createNewCard(data, data.owner._id);
+        const newCard = createNewCard(data);
         cardList.prependItem(newCard);
       })
       .catch((error) => {
@@ -162,10 +180,11 @@ const popupCardForm = new PopupWithForm(
 popupCardForm.setEventListeners();
 
 //добавление новой карточки на страницу
-const createNewCard = (data, curretUserId) => {
+const createNewCard = (data) => {
   const newCardName = data.name;
   const newCardLink = data.link;
-  return createCard({ name: newCardName, link: newCardLink }, curretUserId);
+  const userId = data.owner._id;
+  return createCard({ name: newCardName, link: newCardLink }, userId);
 };
 
 

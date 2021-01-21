@@ -78,7 +78,7 @@ postNewCard(data) {
     },
     body: JSON.stringify({
       name: data.name,
-      link: data.link
+      link: data.link,
     })
   })
     .then(this._returnRes)
