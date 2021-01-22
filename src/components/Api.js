@@ -13,76 +13,76 @@ export default class Api {
     return Promise.reject(`ошибка ${res.status}`);
   }
 
-//--------запросы к данным пользователя
-//запрос данных пользователя
-getUserData() {
-  return fetch(`${this._address}/v1/${this._cohortId}/users/me`, {
-    method: 'GET',
-    headers: {
-      authorization: this._token
-    }
-  })
-    .then(this._returnRes)
-}
-
-//запрос на обновление данных пользователя
-patchUserInfo(data) {
-  return fetch(`${this._address}/v1/${this._cohortId}/users/me`, {
-    method: 'PATCH',
-    headers: {
-      authorization: this._token,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: data.name,
-      about: data.about
+  //--------запросы к данным пользователя
+  //запрос данных пользователя
+  getUserData() {
+    return fetch(`${this._address}/v1/${this._cohortId}/users/me`, {
+      method: 'GET',
+      headers: {
+        authorization: this._token
+      }
     })
-  })
-    .then(this._returnRes)
-}
+      .then(this._returnRes)
+  }
 
-//запрос на обновление аватара пользователя
-patchUserAvatar(data) {
-  return fetch(`${this._address}/v1/${this._cohortId}/users/me/avatar`, {
-    method: 'PATCH',
-    headers: {
-      authorization: this._token,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      avatar: data.avatar
+  //запрос на обновление данных пользователя
+  patchUserInfo(data) {
+    return fetch(`${this._address}/v1/${this._cohortId}/users/me`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: data.name,
+        about: data.about
+      })
     })
-  })
-    .then(this._returnRes)
-}
+      .then(this._returnRes)
+  }
 
-//---------запросы к карточкам
-//запрос массива карточек
-getInitialCards() {
-  return fetch(`${this._address}/v1/${this._cohortId}/cards `, {
-    method: 'GET',
-    headers: {
-      authorization: this._token
-    }
-  })
-    .then(this._returnRes)
-}
-
-//запрос добавления новой карточки
-postNewCard(data) {
-  return fetch(`${this._address}/v1/${this._cohortId}/cards`, {
-    method: 'POST',
-    headers: {
-      authorization: this._token,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: data.name,
-      link: data.link,
+  //запрос на обновление аватара пользователя
+  patchUserAvatar(data) {
+    return fetch(`${this._address}/v1/${this._cohortId}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar: data.avatar
+      })
     })
-  })
-    .then(this._returnRes)
-}
+      .then(this._returnRes)
+  }
+
+  //---------запросы к карточкам
+  //запрос массива карточек
+  getInitialCards() {
+    return fetch(`${this._address}/v1/${this._cohortId}/cards `, {
+      method: 'GET',
+      headers: {
+        authorization: this._token
+      }
+    })
+      .then(this._returnRes)
+  }
+
+  //запрос добавления новой карточки
+  postNewCard(data) {
+    return fetch(`${this._address}/v1/${this._cohortId}/cards`, {
+      method: 'POST',
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link,
+      })
+    })
+      .then(this._returnRes)
+  }
 
   //запрос на удаление карточки
   deleteCard(id) {

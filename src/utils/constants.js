@@ -15,6 +15,7 @@ export const profileAvatar = document.querySelector('.profile__avatar');
 //profile buttons
 export const profileEditButtonOpen = document.querySelector('.profile__edit-button');
 export const cardAddOpen = document.querySelector('.profile__add-button');
+export const avatarEditButton = document.querySelector('.profile__avatar-button');
 
 //popup profile-edit
 export const popupProfileEdit = document.querySelector('.popup_profile-edit');

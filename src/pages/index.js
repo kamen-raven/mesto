@@ -11,6 +11,7 @@ import {
   profileAvatar,
   profileEditButtonOpen,
   cardAddOpen,
+  avatarEditButton,
   popupProfileEdit,
   popupProfileForm,
   popupProfileTxtName,
@@ -56,6 +57,10 @@ formValidationCardAdd.enableValidation();
 const formValidationProfileEdit = new FormValidator(validationClasses, popupProfileForm);
 formValidationProfileEdit.enableValidation();
 
+//валидация формы редактирования аватара
+const formValidationAvatarEdit = new FormValidator(validationClasses, avatarEditForm);
+formValidationAvatarEdit.enableValidation();
+
 
 //--------------ИНИЦИАЛИЗАЦИЯ КЛАССА ПРОФИЛЯ
 const userInfo = new UserInfo(profileTxtName, profileTxtAbout);
@@ -85,6 +90,33 @@ const popupUserForm = new PopupWithForm(
 );
 popupUserForm.setEventListeners();
 
+
+const popupAvatarEdit = new PopupWithForm(
+  avatarEdit, {
+  handleFormSubmit: (data) => {
+    popupAvatarEdit.setLoading(true);
+    api.patchUserAvatar(data)
+    .then((datd) => {
+      
+    })
+    .catch((error) => {
+      console.log(`Хьюстон, у нас проблема при редактировании аватара: ${error}`)
+    })
+    .finally(() => {
+      popupAvatarEdit.setLoading(false);
+    })
+
+  }
+  },
+  profileAvatarEdit
+);
+popupAvatarEdit.setEventListeners();
+
+avatarEditButton.addEventListener('click', () => {
+  popupAvatarEdit.closeWithReset();
+  popupAvatarEdit.open();
+  formValidationAvatarEdit.resetValidation();
+});
 
 //ФУНКЦИЯ ОТКРЫТИЯ ПОПАПА РЕДАКТИРОВАНИЯ ПРОФИЛЯ
 profileEditButtonOpen.addEventListener('click', () => {
@@ -169,7 +201,7 @@ const cardList = new Section({
 const popupCardForm = new PopupWithForm(
   popupCardAdd, {
   handleFormSubmit: (data) => {
-    popupUserForm.setLoading(true);
+    popupCardForm.setLoading(true);
     api.postNewCard(data)
       .then((data) => {
 /*         const newCard = createNewCard(data); */
@@ -180,7 +212,7 @@ const popupCardForm = new PopupWithForm(
         console.log(`Хьюстон, у нас проблема при добавлении новой карточки: ${error}`)
       })
       .finally(() => {
-        popupUserForm.setLoading(false);
+        popupCardForm.setLoading(false);
       })
   }
 },
