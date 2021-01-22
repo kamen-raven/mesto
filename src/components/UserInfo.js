@@ -1,7 +1,8 @@
 export default class UserInfo {
-  constructor(profileName, profileAbout) {
+  constructor(profileName, profileAbout, profileAvatar) {
     this._name = profileName;
     this._about = profileAbout;
+    this._avatar = profileAvatar;
   }
 
   getUserInfo() {
@@ -15,4 +16,10 @@ export default class UserInfo {
     this._name.textContent = newProfileName;
     this._about.textContent = newProfileAbout;
   }
+
+  //метод для редактирования аватара
+  setNewAvatar(newProfileAvatar) {
+    this._avatar.src = newProfileAvatar;
+  }
 }
+

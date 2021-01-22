@@ -6,6 +6,7 @@
   line-height: 0;
   margin-right: 30px;
   padding: 0;
+  outline: none;
 }
 
 .profile__avatar-button:hover {

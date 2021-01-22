@@ -29,8 +29,6 @@ export const profileAvatarEdit = document.forms.profileAvatarEdit;
 
 export const avatarEdit = document.querySelector('.popup_avatar-edit');
 export const avatarEditForm = avatarEdit.querySelector('.popup__form_avatar-edit');
-export const avatarEditLink = avatarEdit.querySelector('.popup__input_avatar-edit_link');
-
 
 //popup add-card
 //нашли форму  popupCardAdd по ее имени (name) - addNewCardForm
@@ -38,8 +36,6 @@ export const addNewCardForm = document.forms.addNewCardForm;
 
 export const popupCardAdd = document.querySelector('.popup_card-add');
 export const popupCardAddForm = popupCardAdd.querySelector('.popup__form_card-add');
-export const popupCardAddName = popupCardAdd.querySelector('.popup__input_card-add_name');
-export const popupCardAddLink = popupCardAdd.querySelector('.popup__input_card-add_link');
 //popup image-view
 export const popupImageView = document.querySelector('.popup_image-view');
 

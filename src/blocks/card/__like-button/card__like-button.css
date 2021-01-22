@@ -12,6 +12,7 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+  outline: none;
 }
 
 .card__like-button:hover {

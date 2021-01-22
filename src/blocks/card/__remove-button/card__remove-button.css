@@ -14,6 +14,7 @@
   background-image: url(../../../images/Trash.svg);
   background-repeat: no-repeat;
   background-size: contain;
+  outline: none;
 }
 
 .card__remove-button:hover {

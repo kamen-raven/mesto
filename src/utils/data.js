@@ -1,3 +1,4 @@
+//селекторы для валидации форм
 export const validationClasses = {
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__save-button',

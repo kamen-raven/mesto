@@ -95,7 +95,6 @@ export default class Api {
       .then(this._returnRes)
   }
 
-
   //-----запросы к лайкам карточек
   //запрос на постановку лайка карточки
   putLike(id) {

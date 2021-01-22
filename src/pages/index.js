@@ -19,13 +19,10 @@ import {
   profileAvatarEdit,
   avatarEdit,
   avatarEditForm,
-  avatarEditLink,
   addNewCardForm,
   popupCardAdd,
   popupCardAddForm,
   popupImageView,
-  popupCardAddName,
-  popupCardAddLink,
   popupConfirmDelete
 } from '../utils/constants.js';
 
@@ -38,6 +35,7 @@ import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
 import Api from '../components/Api.js';
 
+//контейнер для хранения ID текущего пользователя
 let myUserId = "";
 
 //-----ИНИЦИАЛИЗАЦИЯ КЛАССА API
@@ -63,7 +61,7 @@ formValidationAvatarEdit.enableValidation();
 
 
 //--------------ИНИЦИАЛИЗАЦИЯ КЛАССА ПРОФИЛЯ
-const userInfo = new UserInfo(profileTxtName, profileTxtAbout);
+const userInfo = new UserInfo(profileTxtName, profileTxtAbout, profileAvatar);
 
 
 //создаем popup редактирования профиля
@@ -90,34 +88,6 @@ const popupUserForm = new PopupWithForm(
 );
 popupUserForm.setEventListeners();
 
-
-const popupAvatarEdit = new PopupWithForm(
-  avatarEdit, {
-  handleFormSubmit: (data) => {
-    popupAvatarEdit.setLoading(true);
-    api.patchUserAvatar(data)
-    .then((datd) => {
-      
-    })
-    .catch((error) => {
-      console.log(`Хьюстон, у нас проблема при редактировании аватара: ${error}`)
-    })
-    .finally(() => {
-      popupAvatarEdit.setLoading(false);
-    })
-
-  }
-  },
-  profileAvatarEdit
-);
-popupAvatarEdit.setEventListeners();
-
-avatarEditButton.addEventListener('click', () => {
-  popupAvatarEdit.closeWithReset();
-  popupAvatarEdit.open();
-  formValidationAvatarEdit.resetValidation();
-});
-
 //ФУНКЦИЯ ОТКРЫТИЯ ПОПАПА РЕДАКТИРОВАНИЯ ПРОФИЛЯ
 profileEditButtonOpen.addEventListener('click', () => {
   const userInfoValue = userInfo.getUserInfo();
@@ -130,11 +100,41 @@ profileEditButtonOpen.addEventListener('click', () => {
 });
 
 
+//создаем popup редактирования аватара
+const popupAvatarEdit = new PopupWithForm(
+  avatarEdit, {
+  handleFormSubmit: (data) => {
+    popupAvatarEdit.setLoading(true);
+    api.patchUserAvatar(data)
+      .then((datd) => {
+        userInfo.setNewAvatar(data.avatar)
+      })
+      .catch((error) => {
+        console.log(`Хьюстон, у нас проблема при редактировании аватара: ${error}`)
+      })
+      .finally(() => {
+        popupAvatarEdit.setLoading(false);
+      })
+  }
+},
+  profileAvatarEdit
+);
+popupAvatarEdit.setEventListeners();
+
+//слушатель кнопки редактирования аватара
+avatarEditButton.addEventListener('click', () => {
+  popupAvatarEdit.closeWithReset();
+  popupAvatarEdit.open();
+  formValidationAvatarEdit.resetValidation();
+});
+
+
+
 //создаем popup просмотра карточек
 const popupWithImage = new PopupWithImage(popupImageView);
 popupWithImage.setEventListeners();
 
-//создаем popup подтверждения
+//создаем popup подтверждения удаления
 const popupDelete = new PopupConfirm(popupConfirmDelete);
 popupDelete.setEventListeners();
 
@@ -170,15 +170,15 @@ const createCard = (item, curretUserId) => {
       handleClickDelete: (cardId) => {
         popupDelete.setSubmitAction(() => {
           api.deleteCard(cardId)
-          .then(() => {
-            card.removeCard();
-            popupDelete.close();
-          })
-          .catch((error) => {
-            console.log(`Хьюстон, у нас проблема при удалении карточки: ${error}`)
-          })
+            .then(() => {
+              card.removeCard();
+              popupDelete.close();
+            })
+            .catch((error) => {
+              console.log(`Хьюстон, у нас проблема при удалении карточки: ${error}`)
+            })
         }),
-        popupDelete.open();
+          popupDelete.open();
       }
     },
     templateCards //'.template-cards'
@@ -204,7 +204,6 @@ const popupCardForm = new PopupWithForm(
     popupCardForm.setLoading(true);
     api.postNewCard(data)
       .then((data) => {
-/*         const newCard = createNewCard(data); */
         const newCard = createCard(data, myUserId);
         cardList.prependItem(newCard);
       })
@@ -219,15 +218,6 @@ const popupCardForm = new PopupWithForm(
   addNewCardForm
 );
 popupCardForm.setEventListeners();
-
-//добавление новой карточки на страницу
-/* const createNewCard = (data) => {
-  const newCardName = data.name;
-  const newCardLink = data.link;
-  const userId = data.owner._id;
-  return createCard(data, myUserId);
-}; */
-
 
 //card-add события кнопок добавления карточек
 cardAddOpen.addEventListener('click', () => {

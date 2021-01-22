@@ -10,7 +10,6 @@ export default class Card {
     this._handleClickImage = () => handleClickImage(this._name, this._link);
     this._handleClickLike = () => handleClickLike(this._cardId, this._isLiked());
     this._handleClickDelete = () => handleClickDelete(this._cardId);
-/*     this._handleDeleteCard = this._cardButtonRemoveHandler.bind(this); */
   }
 
   //берем template карточки
@@ -21,18 +20,6 @@ export default class Card {
       .cloneNode(true);
   }
 
-  //like-переключатель активности класса
-/*   _cardButtonLikeHandler(event) {
-    event.target.classList.toggle('card__like-button_active');
-  } */
-
-  //кнопка удаления карточки
-/*   _cardButtonRemoveHandler() */
-  removeCard() {
-    this._newCard.remove();
-    this._newCard = null;
-  }
-
   _checkOwnerCard() {
     if (this._curretUserId != this._ownerId) {
       this._newCard.querySelector('.card__remove-button').remove()
@@ -41,12 +28,10 @@ export default class Card {
 
   //навешиваем слушатели событийнн
   _setEventListeners() {
-   /*  this._newCard.querySelector('.card__like-button').addEventListener('click', this._cardButtonLikeHandler); */
     this._newCard.querySelector('.card__like-button').addEventListener('click', this._handleClickLike);
     this._newCard.querySelector('.card__image-button').addEventListener('click', this._handleClickImage);
     this._newCard.querySelector('.card__remove-button').addEventListener('click', this._handleClickDelete);
   }
-
 
   _isLiked() {
     return this._newCard.querySelector('.card__like-button').classList.contains('card__like-button_active');
@@ -69,6 +54,12 @@ export default class Card {
     } else {
       this._newCard.querySelector('.card__like-button').classList.remove('card__like-button_active')
     }
+  }
+
+  //кнопка удаления карточки
+  removeCard() {
+    this._newCard.remove();
+    this._newCard = null;
   }
 
   //публичный метод создания карточки
