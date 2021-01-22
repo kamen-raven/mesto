@@ -106,8 +106,8 @@ const popupAvatarEdit = new PopupWithForm(
   handleFormSubmit: (data) => {
     popupAvatarEdit.setLoading(true);
     api.patchUserAvatar(data)
-      .then((datd) => {
-        userInfo.setNewAvatar(data.avatar)
+      .then((data) => {
+        userInfo.setAvatar(data.avatar)
       })
       .catch((error) => {
         console.log(`Хьюстон, у нас проблема при редактировании аватара: ${error}`)
@@ -233,13 +233,11 @@ Promise.all([
   api.getUserData(),
   api.getInitialCards()
 ])
-  .then((arrayValue) => {
-    const userValue = arrayValue[0];
-    const InitialCards = arrayValue[1];
+  .then(([userValue, initialCards]) => {
     myUserId = userValue._id;
-    profileAvatar.src = userValue.avatar;
     userInfo.setUserInfo(userValue.name, userValue.about);
-    cardList.renderItems(InitialCards);
+    userInfo.setAvatar(userValue.avatar);
+    cardList.renderItems(initialCards);
   })
   .catch((error) => {
     console.log(`Хьюстон, у нас проблема при загрузке первоначальной информации: ${error}`)

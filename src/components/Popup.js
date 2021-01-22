@@ -2,7 +2,7 @@ export default class Popup {
   constructor(popupElement) {
     this._popupElement = popupElement;
     this._keyHandlerEsc = this._keyHandlerEsc.bind(this);
-    this._closeButtonSelector = this._popupElement.querySelector('.popup__close-button');
+    this._closeButton = this._popupElement.querySelector('.popup__close-button');
   }
 
   //открытие
@@ -19,7 +19,7 @@ export default class Popup {
 
   //навешиваем слушатели
   setEventListeners() {
-    this._closeButtonSelector.addEventListener('click', () => {
+    this._closeButton.addEventListener('click', () => {
       this.close();
     });
     this._popupElement.addEventListener('mousedown', (event) => {

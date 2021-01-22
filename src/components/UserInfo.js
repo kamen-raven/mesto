@@ -18,7 +18,7 @@ export default class UserInfo {
   }
 
   //метод для редактирования аватара
-  setNewAvatar(newProfileAvatar) {
+  setAvatar(newProfileAvatar) {
     this._avatar.src = newProfileAvatar;
   }
 }
